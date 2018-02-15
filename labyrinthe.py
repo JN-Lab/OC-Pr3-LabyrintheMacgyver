@@ -1,10 +1,29 @@
+#! /usr/bin/env python3
+# coding: utf-8
+
 import os
 import json
 
+class Character:
+    """ This class creates the characters for the game """
+
+    MIN_X_POSITION = 0
+    MAX_X_POSITION = 15
+    MIN_Y_POSITION = 0
+    MAX_Y_POSITION = 15
+
+    def __init__(self, x_position, y_position):
+        self.x_position = x_position
+        self.y_position = y_position
+        self.face = 'X'
+
+
 class Level:
-    """ This class loads the structure of the labyrinth """
+    """ This class creates the Labyrinth which will be used for the game
+    from a Json file located in the folder named sources/ """
 
     def __init__(self, data_file, key):
+        """ Give the different attributes to the object """
         self.data_file = data_file
         self.key = key
         self.structure = []
@@ -20,15 +39,21 @@ class Level:
         directory = os.path.dirname(__file__) # We get the right path
         path_to_file = os.path.join(directory, 'sources', self.data_file) # We build the path
 
-        with open(path_to_file, "r") as file:
-            data = json.load(file)
-            for lines in data:
-                labyrinth_lines = []
-                for stripe in lines[self.key]:
-                    labyrinth_lines.append(stripe)
-                labyrinth_structure.append(labyrinth_lines)
+        try:
+            with open(path_to_file, "r") as file:
+                data = json.load(file)
+                for lines in data:
+                    labyrinth_lines = []
+                    for stripe in lines[self.key]:
+                        labyrinth_lines.append(stripe)
+                    labyrinth_structure.append(labyrinth_lines)
 
-        self.structure = labyrinth_structure
+            self.structure = labyrinth_structure
+        except FileNotFoundError as error_message:
+            print("The file was not found. Here is the original message : ", error_message)
+        except:
+            print("Destination unknown")
+
 
     def print_labyrinth_into_terminal(self):
         """ This function print the labyrinth into the terminal """
