@@ -4,6 +4,7 @@
 import os
 import json
 
+
 class Character:
     """ This class creates the characters for the game """
 
@@ -25,7 +26,7 @@ class Level:
     def __init__(self, data_file, key):
         """ Give the different attributes to the object """
         self.data_file = data_file
-        self.key = key
+        self.key = key # It is the attribute in Json file
         self.structure = []
 
     def generate_labyrinth_from_json(self):
@@ -54,13 +55,13 @@ class Level:
         except:
             print("Destination unknown")
 
-
     def print_labyrinth_into_terminal(self):
         """ This function print the labyrinth into the terminal """
 
         for line in self.structure:
             line = ''.join(line)
             print(line)
+
 
 def main():
     labyrinth = Level('labyrinthe.json', 'line')
