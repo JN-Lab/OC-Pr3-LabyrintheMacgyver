@@ -4,7 +4,7 @@ Repository du projet-3 du parcours Développeur d'Application Python
 # description
 Il s'agit d'un labyrinthe 2D dans lequel MacGyver aurait été enfermé. La sortie est surveillée par un garde du corps. Pour le distraire, il faut réunir les éléments suivants (dispersés dans le labyrinthe): une aiguille, un petit tube en plastique et de l'éther. Ils permettront à MacGyver de créer une seringue et d'endormir notre garde.
 
-#fonctionnalités
+# fonctionnalités
 -> Il n'y a qu'un seul niveau. La structure (départ, emplacement des murs, arrivée), devra être enregistrée dans un fichier pour la modifier facilement au besoin.
 
 -> MacGyver sera contrôlé par les touches directionnelles du clavier.
