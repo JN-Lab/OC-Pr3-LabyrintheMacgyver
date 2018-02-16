@@ -35,7 +35,7 @@ class Character:
             if labyrinth_structure[self.y_position][self.x_position - 1] == "O":
                 self.x_position -= 1
             else:
-                if labyrinth_structure[self.y_position][self.x_position + 1] == "F":
+                if labyrinth_structure[self.y_position][self.x_position - 1] == "F":
                     self.escape_success()
                 else:
                     print("Pas possible. C'est un mur!\n")
@@ -43,7 +43,7 @@ class Character:
             if labyrinth_structure[self.y_position - 1][self.x_position] == "O":
                 self.y_position -= 1
             else:
-                if labyrinth_structure[self.y_position][self.x_position + 1] == "F":
+                if labyrinth_structure[self.y_position - 1][self.x_position] == "F":
                     self.escape_success()
                 else:
                     print("Pas possible. C'est un mur!\n")
@@ -51,7 +51,7 @@ class Character:
             if labyrinth_structure[self.y_position + 1][self.x_position] == "O":
                 self.y_position += 1
             else:
-                if labyrinth_structure[self.y_position][self.x_position + 1] == "F":
+                if labyrinth_structure[self.y_position + 1][self.x_position] == "F":
                     self.escape_success()
                 else:
                     print("Pas possible. C'est un mur!\n")
@@ -112,7 +112,7 @@ class Level:
 
     def update_labyrinth_structure(self, character):
         """ This method updates the labyrinth according the movement of one character """
-        
+
         self.structure[character.y_position][character.x_position] = character.face
 
         if character.direction is not None:
@@ -136,10 +136,11 @@ def main():
     labyrinth = Level('labyrinthe.json', 'line')
     labyrinth.generate_labyrinth_from_json()
 
-    # Initialization of MacGyver
+    # Initialization of characters
     macgyver = Character(1, 1, 'X')
     labyrinth.update_labyrinth_structure(macgyver)
-
+    gardien = Character(14, 12, 'F')
+    labyrinth.update_labyrinth_structure(gardien)
     # Print labyrinth with Mac Gyver on its initial position
     labyrinth.print_labyrinth_into_terminal()
 
