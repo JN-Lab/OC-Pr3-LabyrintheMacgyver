@@ -4,12 +4,14 @@
 import os
 import sys
 import json
+import random
 
 
 class Character:
     """ This class creates the characters for the game """
 
     def __init__(self, x_position, y_position, face):
+        """ This method gives the different attributes to the character's object """
         self.x_position = x_position
         self.y_position = y_position
         self.face = face
@@ -70,7 +72,7 @@ class Level:
     from a Json file located in the folder named sources/ """
 
     def __init__(self, data_file, key):
-        """ Give the different attributes to the object """
+        """ This method gives the different attributes to the Level's labyrinth """
         self.data_file = data_file
         self.key = key # It is the attribute in Json file
         self.structure = []
@@ -123,6 +125,32 @@ class Level:
             elif character.direction == "bas":
                 self.structure[character.y_position - 1][character.x_position] = "O"
 
+class Object:
+    """ This class creates the object and position them on the labyrinth"""
+
+    def __init__(self, face):
+        """ This method gives the attribute to the Object's item """
+        self.x_position = 0
+        self.y_position = 0
+        self.face = face
+        # necessitera peut être une direction qui restera toujours vide
+
+    def get_random_position(self):
+        self.x_position = random.randint(1,13)
+        self.y_position = random.randint(1,13)
+
+    def get_position(self, labyrinth_structure):
+        #--> To test
+        #valid_location = []
+        #for index_line, line in enumerate(labyrinth_structure):
+            #for index_stripe, stripe in enumerate(line):
+                #if stripe == "O":
+                    #valid_location.append([index_line, index_stripe])
+                #else:
+                    #pass
+        #winner_location = random.choice(valid_location)
+        #self.y_position = winner_location[0]
+        #self.x_position = winner_location[1]
 
 def main():
     """ main function of the program """
@@ -140,6 +168,12 @@ def main():
     labyrinth.update_labyrinth_structure(macgyver)
     gardien = Character(14, 12, 'F')
     labyrinth.update_labyrinth_structure(gardien)
+
+    # TEST ---- Object Initialization
+    test_objet = Object("A")
+    test_objet.get_random_position()
+    print(test_objet.x_position)
+    print(test_objet.y_position)
 
     # Print labyrinth with Mac Gyver on its initial position
     labyrinth.print_labyrinth_into_terminal()
