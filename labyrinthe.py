@@ -29,7 +29,7 @@ class Character:
         or the left if there is no wall. At the same time, it manages the evolution
         of the structure according the movement of the main character """
 
-        print(direction)
+        print("\n La direction que tu as choisie: {}\n".format(direction))
 
         if direction == "droite":
             if self.labyrinth_structure[self.y_position][self.x_position + 1] == "O":
@@ -150,6 +150,7 @@ def main():
     while True:
         print("\n ----------")
         direction = input("Dans quel direction souhaitez-vous diriger MacGyver?\n Tapez droite pour aller à droite \n Tapez gauche pour aller à gauche \n Tapez haut pour aller en haut \n Tapez bas pour aller en bas \n Votre choix : ")
+        direction = direction.lower()
         print("----------\n")
 
         macgyver.move(direction)
