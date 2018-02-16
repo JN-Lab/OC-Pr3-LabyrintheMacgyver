@@ -20,11 +20,13 @@ class Character:
         self.direction = ""
         self.labyrinth_structure = labyrinth_structure
 
+        # Locate the character inside the structure
         self.labyrinth_structure[self.y_position][self.x_position] = self.face
 
     def move(self, direction):
         """ This method allows the character to move on the top, the right, the bottom
-        or the left if there is no wall """
+        or the left if there is no wall. At the same time, it manages the evolution
+        of the structure according the movement of the main character """
 
         print(direction)
 
@@ -59,7 +61,10 @@ class Character:
         else:
             print("La commande n'est pas correcte. Veuillez réessayer.")
 
-    def print_labyrinth_into_terminal_with_macgyver(self):
+    def print_labyrinth_into_terminal(self):
+        """ This method prints the labyrinth. It is a method from the Character's class
+        - end not from the level class - because it allows to get the labyrinthe structure
+        updated with the movement of the characters """
 
         for line in self.labyrinth_structure:
             line = ''.join(line)
@@ -104,13 +109,6 @@ class Level:
         except:
             print("Destination unknown")
 
-    def print_labyrinth_into_terminal(self):
-        """ This function print the labyrinth into the terminal """
-
-        for line in self.structure:
-            line = ''.join(line)
-            print(line)
-
 
 def main():
     """ main function of the program """
@@ -127,7 +125,7 @@ def main():
     macgyver = Character(1, 1, labyrinth.structure)
 
     # Print labyrinth with Mac Gyver on its initial position
-    macgyver.print_labyrinth_into_terminal_with_macgyver()
+    macgyver.print_labyrinth_into_terminal()
 
     # Start game
     while True:
@@ -136,7 +134,7 @@ def main():
         print("----------\n")
 
         macgyver.move(direction)
-        macgyver.print_labyrinth_into_terminal_with_macgyver()
+        macgyver.print_labyrinth_into_terminal()
         break
 
 if __name__ == "__main__":
