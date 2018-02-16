@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import os
+import sys
 import json
 
 
@@ -31,33 +32,49 @@ class Character:
         print(direction)
 
         if direction == "droite":
-            if self.labyrinth_structure[self.y_position][self.x_position + 1] != "#":
+            if self.labyrinth_structure[self.y_position][self.x_position + 1] == "O":
                 self.labyrinth_structure[self.y_position][self.x_position] = "O"
                 self.x_position += 1
                 self.labyrinth_structure[self.y_position][self.x_position] = self.face
             else:
-                print("Pas possible. C'est un mur!")
+                if self.labyrinth_structure[self.y_position][self.x_position + 1] == "#":
+                    print("Pas possible. C'est un mur!")
+                else:
+                    print("Bravo!! Tu as trouvé la sortie.")
+                    sys.exit()
         elif direction == "gauche":
-            if self.labyrinth_structure[self.y_position][self.x_position - 1] != "#":
+            if self.labyrinth_structure[self.y_position][self.x_position - 1] == "O":
                 self.labyrinth_structure[self.y_position][self.x_position] = "O"
                 self.x_position -= 1
                 self.labyrinth_structure[self.y_position][self.x_position] = self.face
             else:
-                print("Pas possible. C'est un mur!")
+                if self.labyrinth_structure[self.y_position][self.x_position + 1] == "#":
+                    print("Pas possible. C'est un mur!")
+                else:
+                    print("Bravo!! Tu as trouvé la sortie.")
+                    sys.exit()
         elif direction == "haut":
-            if self.labyrinth_structure[self.y_position - 1][self.x_position] != "#":
+            if self.labyrinth_structure[self.y_position - 1][self.x_position] == "O":
                 self.labyrinth_structure[self.y_position][self.x_position] = "O"
                 self.y_position -= 1
                 self.labyrinth_structure[self.y_position][self.x_position] = self.face
             else:
-                print("Pas possible. C'est un mur!")
+                if self.labyrinth_structure[self.y_position][self.x_position + 1] == "#":
+                    print("Pas possible. C'est un mur!")
+                else:
+                    print("Bravo!! Tu as trouvé la sortie.")
+                    sys.exit()
         elif direction == "bas":
-            if self.labyrinth_structure[self.y_position + 1][self.x_position] != "#":
+            if self.labyrinth_structure[self.y_position + 1][self.x_position] == "O":
                 self.labyrinth_structure[self.y_position][self.x_position] = "O"
                 self.y_position += 1
                 self.labyrinth_structure[self.y_position][self.x_position] = self.face
             else:
-                print("Pas possible. C'est un mur!")
+                if self.labyrinth_structure[self.y_position][self.x_position + 1] == "#":
+                    print("Pas possible. C'est un mur!")
+                else:
+                    print("Bravo!! Tu as trouvé la sortie.")
+                    sys.exit()
         else:
             print("La commande n'est pas correcte. Veuillez réessayer.")
 
@@ -136,7 +153,6 @@ def main():
         print("----------\n")
 
         macgyver.move(direction)
-        break
 
 if __name__ == "__main__":
     main()
