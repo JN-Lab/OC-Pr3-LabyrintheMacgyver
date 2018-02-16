@@ -9,10 +9,10 @@ import json
 class Character:
     """ This class creates the characters for the game """
 
-    def __init__(self, x_position, y_position, labyrinth_structure):
+    def __init__(self, x_position, y_position, face, labyrinth_structure):
         self.x_position = x_position
         self.y_position = y_position
-        self.face = 'X'
+        self.face = face
         self.direction = ""
         self.labyrinth_structure = labyrinth_structure
 
@@ -68,17 +68,6 @@ class Character:
         else:
             print("La commande n'est pas correcte. Veuillez réessayer.")
 
-        self.print_labyrinth_into_terminal()
-
-    def print_labyrinth_into_terminal(self):
-        """ This method prints the labyrinth. It is a method from the Character's class
-        - end not from the level class - because it allows to get the labyrinthe structure
-        updated with the movement of the characters """
-
-        for line in self.labyrinth_structure:
-            line = ''.join(line)
-            print(line)
-
     def escape_success(self):
         print("Bravo!! MacGyver a pu s'échapper!")
         sys.exit()
@@ -122,6 +111,15 @@ class Level:
         except:
             print("Destination unknown")
 
+    def print_labyrinth_into_terminal(self, labyrinth_structure):
+        """ This method prints the labyrinth. It is a method from the Character's class
+        - end not from the level class - because it allows to get the labyrinthe structure
+        updated with the movement of the characters """
+
+        for line in labyrinth_structure:
+            line = ''.join(line)
+            print(line)
+
 
 def main():
     """ main function of the program """
@@ -135,10 +133,10 @@ def main():
     labyrinth.generate_labyrinth_from_json()
 
     # Initialization of MacGyver
-    macgyver = Character(1, 1, labyrinth.structure)
+    macgyver = Character(1, 1, 'X', labyrinth.structure)
 
     # Print labyrinth with Mac Gyver on its initial position
-    macgyver.print_labyrinth_into_terminal()
+    labyrinth.print_labyrinth_into_terminal(macgyver.labyrinth_structure)
 
     # Start game
     while True:
@@ -149,6 +147,7 @@ def main():
         print("La direction que tu as choisie: {}\n".format(direction))
 
         macgyver.move(direction)
+        labyrinth.print_labyrinth_into_terminal(macgyver.labyrinth_structure)
 
 if __name__ == "__main__":
     main()
