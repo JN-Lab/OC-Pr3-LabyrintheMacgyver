@@ -70,9 +70,25 @@ class Level:
 
 def main():
     """ main function of the program """
+    # Welcome message
+    print("\n##########")
+    print("Aidez MacGyver à s'échapper du labyrinthe")
+    print("##########\n")
+
+    # Ask play?
+
+    # Initialization of the labyrinth
     labyrinth = Level('labyrinthe.json', 'line')
     labyrinth.generate_labyrinth_from_json()
+
+    # Initialization of MacGyver
+    macgyver = Character(1, 1)
+    labyrinth.structure[1][1] = macgyver.face
+
+    # Print labyrinth with Mac Gyver on its initial position
     labyrinth.print_labyrinth_into_terminal()
+
+
 
 if __name__ == "__main__":
     main()
