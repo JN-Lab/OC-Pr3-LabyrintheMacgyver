@@ -111,6 +111,8 @@ class Level:
             print(line)
 
     def update_labyrinth_structure(self, character):
+        """ This method updates the labyrinth according the movement of one character """
+        
         self.structure[character.y_position][character.x_position] = character.face
 
         if character.direction is not None:
