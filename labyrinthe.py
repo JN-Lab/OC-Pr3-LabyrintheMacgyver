@@ -102,9 +102,7 @@ class Level:
             print("Destination unknown")
 
     def print_labyrinth_into_terminal(self):
-        """ This method prints the labyrinth. It is a method from the Character's class
-        - end not from the level class - because it allows to get the labyrinthe structure
-        updated with the movement of the characters """
+        """ This method prints the labyrinth. """
 
         for line in self.structure:
             line = ''.join(line)
@@ -125,6 +123,7 @@ class Level:
             elif character.direction == "bas":
                 self.structure[character.y_position - 1][character.x_position] = "O"
 
+
 def main():
     """ main function of the program """
     # Welcome message
@@ -136,11 +135,12 @@ def main():
     labyrinth = Level('labyrinthe.json', 'line')
     labyrinth.generate_labyrinth_from_json()
 
-    # Initialization of characters
+    # Character Initialization + Labyrinth's structure update
     macgyver = Character(1, 1, 'X')
     labyrinth.update_labyrinth_structure(macgyver)
     gardien = Character(14, 12, 'F')
     labyrinth.update_labyrinth_structure(gardien)
+
     # Print labyrinth with Mac Gyver on its initial position
     labyrinth.print_labyrinth_into_terminal()
 
