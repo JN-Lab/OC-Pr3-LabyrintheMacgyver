@@ -20,7 +20,7 @@ class Character:
         self.direction = ""
         self.labyrinth_structure = labyrinth_structure
 
-        # Locate the character inside the structure
+        # Locate the character inside the structure and print it.
         self.labyrinth_structure[self.y_position][self.x_position] = self.face
 
     def move(self, direction):
@@ -60,6 +60,8 @@ class Character:
                 print("Pas possible. C'est un mur!")
         else:
             print("La commande n'est pas correcte. Veuillez réessayer.")
+
+        self.print_labyrinth_into_terminal()
 
     def print_labyrinth_into_terminal(self):
         """ This method prints the labyrinth. It is a method from the Character's class
@@ -134,7 +136,6 @@ def main():
         print("----------\n")
 
         macgyver.move(direction)
-        macgyver.print_labyrinth_into_terminal()
         break
 
 if __name__ == "__main__":
