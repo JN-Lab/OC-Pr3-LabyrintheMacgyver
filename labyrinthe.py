@@ -18,6 +18,11 @@ class Character:
         self.y_position = y_position
         self.face = 'X'
 
+    def move(self):
+        pass
+
+    def get_items(self):
+        pass
 
 class Level:
     """ This class creates the Labyrinth which will be used for the game
@@ -64,6 +69,7 @@ class Level:
 
 
 def main():
+    """ main function of the program """
     labyrinth = Level('labyrinthe.json', 'line')
     labyrinth.generate_labyrinth_from_json()
     labyrinth.print_labyrinth_into_terminal()
