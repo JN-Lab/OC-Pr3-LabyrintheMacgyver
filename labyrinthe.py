@@ -22,17 +22,20 @@ class Character:
     def move(self, direction):
         """ This method allows the character to move on the top, the right, the bottom
         or the left if there is no wall """
-        pass
-        # if self.direction == "right":
-        #     pass
-        # elif self.direction == "left":
-        #     pass
-        # elif self.direction == "up":
-        #     pass
-        # elif self.direction == "below":
-        #     pass
-        # else:
-        #     print("La commande n'est pas correcte. Veuillez réessayer.")
+        if self.direction == "right":
+            if self.labyrinth_structure[self.y_position][self.x_position + 1] != "#":
+                self.x_position += 1
+        elif self.direction == "left":
+            if self.labyrinth_structure[self.y_position][self.x_position - 1] != "#":
+                self.x_position -= 1
+        elif self.direction == "up":
+            if self.labyrinth_structure[self.y_position - 1][self.x_position] != "#":
+                self.y_position -= 1
+        elif self.direction == "below":
+            if self.labyrinth_structure[self.y_position + 1][self.x_position] != "#":
+                self.y_position += 1
+        else:
+            print("La commande n'est pas correcte. Veuillez réessayer.")
 
 
     def get_items(self):
@@ -97,7 +100,7 @@ def main():
 
     # Initialization of MacGyver
     macgyver = Character(1, 1, labyrinth.structure)
-    labyrinth.structure[1][1] = macgyver.face
+    labyrinth.structure[macgyver.y_position][macgyver.x_position] = macgyver.face
 
     # Print labyrinth with Mac Gyver on its initial position
     labyrinth.print_labyrinth_into_terminal()
