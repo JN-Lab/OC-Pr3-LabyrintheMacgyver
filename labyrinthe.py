@@ -9,59 +9,49 @@ import json
 class Character:
     """ This class creates the characters for the game """
 
-    def __init__(self, x_position, y_position, face, labyrinth_structure):
+    def __init__(self, x_position, y_position, face):
         self.x_position = x_position
         self.y_position = y_position
         self.face = face
         self.direction = ""
-        self.labyrinth_structure = labyrinth_structure
 
-        # Locate the character inside the structure and print it.
-        self.labyrinth_structure[self.y_position][self.x_position] = self.face
-
-    def move(self, direction):
+    def move(self, direction, labyrinth_structure):
         """ This method allows the character to move on the top, the right, the bottom
         or the left if there is no wall. At the same time, it manages the evolution
         of the structure according the movement of the main character. If the
         character reachs the F case, he wins. """
 
+        self.direction = direction
+
         if direction == "droite":
-            if self.labyrinth_structure[self.y_position][self.x_position + 1] == "O":
-                self.labyrinth_structure[self.y_position][self.x_position] = "O"
+            if labyrinth_structure[self.y_position][self.x_position + 1] == "O":
                 self.x_position += 1
-                self.labyrinth_structure[self.y_position][self.x_position] = self.face
             else:
-                if self.labyrinth_structure[self.y_position][self.x_position + 1] == "F":
+                if labyrinth_structure[self.y_position][self.x_position + 1] == "F":
                     self.escape_success()
                 else:
                     print("Pas possible. C'est un mur!\n")
         elif direction == "gauche":
-            if self.labyrinth_structure[self.y_position][self.x_position - 1] == "O":
-                self.labyrinth_structure[self.y_position][self.x_position] = "O"
+            if labyrinth_structure[self.y_position][self.x_position - 1] == "O":
                 self.x_position -= 1
-                self.labyrinth_structure[self.y_position][self.x_position] = self.face
             else:
-                if self.labyrinth_structure[self.y_position][self.x_position + 1] == "F":
+                if labyrinth_structure[self.y_position][self.x_position + 1] == "F":
                     self.escape_success()
                 else:
                     print("Pas possible. C'est un mur!\n")
         elif direction == "haut":
-            if self.labyrinth_structure[self.y_position - 1][self.x_position] == "O":
-                self.labyrinth_structure[self.y_position][self.x_position] = "O"
+            if labyrinth_structure[self.y_position - 1][self.x_position] == "O":
                 self.y_position -= 1
-                self.labyrinth_structure[self.y_position][self.x_position] = self.face
             else:
-                if self.labyrinth_structure[self.y_position][self.x_position + 1] == "F":
+                if labyrinth_structure[self.y_position][self.x_position + 1] == "F":
                     self.escape_success()
                 else:
                     print("Pas possible. C'est un mur!\n")
         elif direction == "bas":
-            if self.labyrinth_structure[self.y_position + 1][self.x_position] == "O":
-                self.labyrinth_structure[self.y_position][self.x_position] = "O"
+            if labyrinth_structure[self.y_position + 1][self.x_position] == "O":
                 self.y_position += 1
-                self.labyrinth_structure[self.y_position][self.x_position] = self.face
             else:
-                if self.labyrinth_structure[self.y_position][self.x_position + 1] == "F":
+                if labyrinth_structure[self.y_position][self.x_position + 1] == "F":
                     self.escape_success()
                 else:
                     print("Pas possible. C'est un mur!\n")
@@ -111,15 +101,27 @@ class Level:
         except:
             print("Destination unknown")
 
-    def print_labyrinth_into_terminal(self, labyrinth_structure):
+    def print_labyrinth_into_terminal(self):
         """ This method prints the labyrinth. It is a method from the Character's class
         - end not from the level class - because it allows to get the labyrinthe structure
         updated with the movement of the characters """
 
-        for line in labyrinth_structure:
+        for line in self.structure:
             line = ''.join(line)
             print(line)
 
+    def update_labyrinth_structure(self, character):
+        self.structure[character.y_position][character.x_position] = character.face
+
+        if character.direction is not None:
+            if character.direction == "droite":
+                self.structure[character.y_position][character.x_position - 1] = "O"
+            elif character.direction == "gauche":
+                self.structure[character.y_position][character.x_position + 1] = "O"
+            elif character.direction == "haut":
+                self.structure[character.y_position + 1][character.x_position] = "O"
+            elif character.direction == "bas":
+                self.structure[character.y_position - 1][character.x_position] = "O"
 
 def main():
     """ main function of the program """
@@ -133,10 +135,11 @@ def main():
     labyrinth.generate_labyrinth_from_json()
 
     # Initialization of MacGyver
-    macgyver = Character(1, 1, 'X', labyrinth.structure)
+    macgyver = Character(1, 1, 'X')
+    labyrinth.update_labyrinth_structure(macgyver)
 
     # Print labyrinth with Mac Gyver on its initial position
-    labyrinth.print_labyrinth_into_terminal(macgyver.labyrinth_structure)
+    labyrinth.print_labyrinth_into_terminal()
 
     # Start game
     while True:
@@ -146,8 +149,9 @@ def main():
         print("----------\n")
         print("La direction que tu as choisie: {}\n".format(direction))
 
-        macgyver.move(direction)
-        labyrinth.print_labyrinth_into_terminal(macgyver.labyrinth_structure)
+        macgyver.move(direction, labyrinth.structure)
+        labyrinth.update_labyrinth_structure(macgyver)
+        labyrinth.print_labyrinth_into_terminal()
 
 if __name__ == "__main__":
     main()
