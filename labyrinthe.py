@@ -13,13 +13,27 @@ class Character:
     MIN_Y_POSITION = 0
     MAX_Y_POSITION = 15
 
-    def __init__(self, x_position, y_position):
+    def __init__(self, x_position, y_position, labyrinth_structure):
         self.x_position = x_position
         self.y_position = y_position
         self.face = 'X'
+        self.labyrinth_structure = labyrinth_structure
 
-    def move(self):
+    def move(self, direction):
+        """ This method allows the character to move on the top, the right, the bottom
+        or the left if there is no wall """
         pass
+        # if self.direction == "right":
+        #     pass
+        # elif self.direction == "left":
+        #     pass
+        # elif self.direction == "up":
+        #     pass
+        # elif self.direction == "below":
+        #     pass
+        # else:
+        #     print("La commande n'est pas correcte. Veuillez réessayer.")
+
 
     def get_items(self):
         pass
@@ -82,7 +96,7 @@ def main():
     labyrinth.generate_labyrinth_from_json()
 
     # Initialization of MacGyver
-    macgyver = Character(1, 1)
+    macgyver = Character(1, 1, labyrinth.structure)
     labyrinth.structure[1][1] = macgyver.face
 
     # Print labyrinth with Mac Gyver on its initial position
