@@ -140,6 +140,7 @@ class Object:
         self.y_position = random.randint(1,13)
 
     def get_position(self, labyrinth_structure):
+        pass
         #--> To test
         #valid_location = []
         #for index_line, line in enumerate(labyrinth_structure):
