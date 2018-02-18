@@ -15,6 +15,7 @@ class Character:
         self.x_position = x_position
         self.y_position = y_position
         self.face = face
+        self.numb_items = 0
         self.direction = ""
 
     def move(self, direction, labyrinth_structure):
@@ -24,39 +25,40 @@ class Character:
         character reachs the F case, he wins. """
 
         self.direction = direction
+        next_case_face = ""
 
         if direction == "droite":
-            if labyrinth_structure[self.y_position][self.x_position + 1] == "O":
+            next_case_face = labyrinth_structure[self.y_position][self.x_position + 1]
+            if next_case_face != "#":
                 self.x_position += 1
+                if next_case_face != "O":
+                    self.touch(next_case_face)
             else:
-                if labyrinth_structure[self.y_position][self.x_position + 1] == "F":
-                    self.escape_success()
-                else:
-                    print("Pas possible. C'est un mur!\n")
+                print("Pas possible. C'est un mur!\n")
         elif direction == "gauche":
-            if labyrinth_structure[self.y_position][self.x_position - 1] == "O":
+            next_case_face = labyrinth_structure[self.y_position][self.x_position - 1]
+            if next_case_face != "#":
                 self.x_position -= 1
+                if next_case_face != "O":
+                    self.touch(next_case_face)
             else:
-                if labyrinth_structure[self.y_position][self.x_position - 1] == "F":
-                    self.escape_success()
-                else:
-                    print("Pas possible. C'est un mur!\n")
+                print("Pas possible. C'est un mur!\n")
         elif direction == "haut":
-            if labyrinth_structure[self.y_position - 1][self.x_position] == "O":
+            next_case_face = labyrinth_structure[self.y_position - 1][self.x_position]
+            if next_case_face != "#":
                 self.y_position -= 1
+                if next_case_face != "O":
+                    self.touch(next_case_face)
             else:
-                if labyrinth_structure[self.y_position - 1][self.x_position] == "F":
-                    self.escape_success()
-                else:
-                    print("Pas possible. C'est un mur!\n")
+                print("Pas possible. C'est un mur!\n")
         elif direction == "bas":
-            if labyrinth_structure[self.y_position + 1][self.x_position] == "O":
+            next_case_face = labyrinth_structure[self.y_position + 1][self.x_position]
+            if next_case_face != "#":
                 self.y_position += 1
+                if next_case_face != "O":
+                    self.touch(next_case_face)
             else:
-                if labyrinth_structure[self.y_position + 1][self.x_position] == "F":
-                    self.escape_success()
-                else:
-                    print("Pas possible. C'est un mur!\n")
+                print("Pas possible. C'est un mur!\n")
         else:
             print("La commande n'est pas correcte. Veuillez réessayer.")
 
@@ -65,8 +67,15 @@ class Character:
         print("Bravo!! MacGyver a pu s'échapper!")
         sys.exit()
 
-    def get_items(self):
-        pass
+    def touch(self, face_item):
+        if face_item == "F":
+            if self.numb_items < 3:
+                print("Perdu! Le gardien t'a attrappé.")
+            else:
+                print("Bravo!! MacGyver a pu s'échapper.")
+            sys.exit()
+        else:
+            self.numb_items +=1
 
 class Level:
     """ This class creates the Labyrinth which will be used for the game
@@ -167,12 +176,18 @@ def main():
     guardian = Character(14, 12, 'F')
     labyrinth.update_labyrinth_structure(guardian)
 
-    # Object Initialization
+    # Objects Initialization
     needle = Object("N")
     needle.get_position(labyrinth.structure)
     labyrinth.update_labyrinth_structure(needle)
+    tube = Object("T")
+    tube.get_position(labyrinth.structure)
+    labyrinth.update_labyrinth_structure(tube)
+    ether = Object("E")
+    ether.get_position(labyrinth.structure)
+    labyrinth.update_labyrinth_structure(ether)
 
-    # Print labyrinth with Mac Gyver on its initial position
+    # Print labyrinth with characters and objects on their initial position
     labyrinth.print_labyrinth_into_terminal()
 
     # Start game
