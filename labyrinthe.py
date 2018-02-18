@@ -61,6 +61,7 @@ class Character:
             print("La commande n'est pas correcte. Veuillez réessayer.")
 
     def escape_success(self):
+        """ This method manages the end of the game """
         print("Bravo!! MacGyver a pu s'échapper!")
         sys.exit()
 
@@ -133,25 +134,21 @@ class Object:
         self.x_position = 0
         self.y_position = 0
         self.face = face
-        # necessitera peut être une direction qui restera toujours vide
-
-    def get_random_position(self):
-        self.x_position = random.randint(1,13)
-        self.y_position = random.randint(1,13)
+        self.direction = ""
 
     def get_position(self, labyrinth_structure):
-        pass
-        #--> To test
-        #valid_location = []
-        #for index_line, line in enumerate(labyrinth_structure):
-            #for index_stripe, stripe in enumerate(line):
-                #if stripe == "O":
-                    #valid_location.append([index_line, index_stripe])
-                #else:
-                    #pass
-        #winner_location = random.choice(valid_location)
-        #self.y_position = winner_location[0]
-        #self.x_position = winner_location[1]
+        """ This method selects a random valid place in the labyrinth
+         to get object position """
+        valid_location = []
+        for index_line, line in enumerate(labyrinth_structure):
+            for index_stripe, stripe in enumerate(line):
+                if stripe == "O":
+                    valid_location.append([index_line, index_stripe])
+                else:
+                    pass
+        winner_location = random.choice(valid_location)
+        self.y_position = winner_location[0]
+        self.x_position = winner_location[1]
 
 def main():
     """ main function of the program """
@@ -172,9 +169,8 @@ def main():
 
     # TEST ---- Object Initialization
     test_objet = Object("A")
-    test_objet.get_random_position()
-    print(test_objet.x_position)
-    print(test_objet.y_position)
+    test_objet.get_position(labyrinth.structure)
+    labyrinth.update_labyrinth_structure(test_objet)
 
     # Print labyrinth with Mac Gyver on its initial position
     labyrinth.print_labyrinth_into_terminal()
