@@ -32,7 +32,7 @@ class Character:
             if next_case_face != "#":
                 self.x_position += 1
                 if next_case_face != "O":
-                    self.touch(next_case_face)
+                    self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "gauche":
@@ -40,7 +40,7 @@ class Character:
             if next_case_face != "#":
                 self.x_position -= 1
                 if next_case_face != "O":
-                    self.touch(next_case_face)
+                    self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "haut":
@@ -48,7 +48,7 @@ class Character:
             if next_case_face != "#":
                 self.y_position -= 1
                 if next_case_face != "O":
-                    self.touch(next_case_face)
+                    self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "bas":
@@ -56,18 +56,15 @@ class Character:
             if next_case_face != "#":
                 self.y_position += 1
                 if next_case_face != "O":
-                    self.touch(next_case_face)
+                    self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")
         else:
             print("La commande n'est pas correcte. Veuillez réessayer.")
 
-    def escape_success(self):
-        """ This method manages the end of the game """
-        print("Bravo!! MacGyver a pu s'échapper!")
-        sys.exit()
-
-    def touch(self, face_item):
+    def __touch(self, face_item):
+        """ This private method manages the interaction between character and objects
+        after the movement of the main character """
         if face_item == "F":
             if self.numb_items < 3:
                 print("Perdu! Le gardien t'a attrappé.")
@@ -75,7 +72,7 @@ class Character:
                 print("Bravo!! MacGyver a pu s'échapper.")
             sys.exit()
         else:
-            self.numb_items +=1
+            self.numb_items += 1
 
 class Level:
     """ This class creates the Labyrinth which will be used for the game
@@ -192,6 +189,7 @@ def main():
 
     # Start game
     while True:
+        # Ask Direction to the player
         print("\n ----------")
         print("Dans quel direction souhaites-tu diriger MacGyver?")
         print("Tape droite pour aller à droite")
@@ -203,6 +201,7 @@ def main():
         print("----------\n")
         print("La direction que tu as choisie: {}\n".format(direction))
 
+        # Move MacGyver according the direction
         macgyver.move(direction, labyrinth.structure)
         labyrinth.update_labyrinth_structure(macgyver)
         labyrinth.print_labyrinth_into_terminal()
