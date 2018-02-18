@@ -153,9 +153,9 @@ class Object:
 def main():
     """ main function of the program """
     # Welcome message
-    print("\n##########")
+    print("\n##########################################")
     print("Aide MacGyver à s'échapper du labyrinthe!")
-    print("##########\n")
+    print("##########################################\n")
 
     # Initialization of the labyrinth
     labyrinth = Level('labyrinthe.json', 'line')
@@ -164,13 +164,13 @@ def main():
     # Character Initialization + Labyrinth's structure update
     macgyver = Character(1, 1, 'X')
     labyrinth.update_labyrinth_structure(macgyver)
-    gardien = Character(14, 12, 'F')
-    labyrinth.update_labyrinth_structure(gardien)
+    guardian = Character(14, 12, 'F')
+    labyrinth.update_labyrinth_structure(guardian)
 
-    # TEST ---- Object Initialization
-    test_objet = Object("A")
-    test_objet.get_position(labyrinth.structure)
-    labyrinth.update_labyrinth_structure(test_objet)
+    # Object Initialization
+    needle = Object("N")
+    needle.get_position(labyrinth.structure)
+    labyrinth.update_labyrinth_structure(needle)
 
     # Print labyrinth with Mac Gyver on its initial position
     labyrinth.print_labyrinth_into_terminal()
@@ -178,7 +178,12 @@ def main():
     # Start game
     while True:
         print("\n ----------")
-        direction = input("Dans quel direction souhaites-tu diriger MacGyver?\n Tape droite pour aller à droite \n Tape gauche pour aller à gauche \n Tape haut pour aller en haut \n Tape bas pour aller en bas \n Ton choix : ")
+        print("Dans quel direction souhaites-tu diriger MacGyver?")
+        print("Tape droite pour aller à droite")
+        print("Tape gauche pour aller à gauche")
+        print("Tape haut pour aller en haut")
+        print("Tape bas pour aller en bas")
+        direction = input("Ton choix : ")
         direction = direction.lower()
         print("----------\n")
         print("La direction que tu as choisie: {}\n".format(direction))
