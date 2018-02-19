@@ -79,11 +79,18 @@ class Level:
     """ This class creates the Labyrinth which will be used for the game
     from a Json file located in the folder named sources/ """
 
+    MIN_Y_AXIS = 0
+    MAX_Y_AXIS = 14
+    MIN_X_AXIS = 0
+    MAX_X_AXIS = 14
+
     def __init__(self, data_file, key):
         """ This method gives the different attributes to the Level's labyrinth """
         self.data_file = data_file
         self.key = key # It is the attribute in Json file
         self.structure = []
+
+        self.generate_labyrinth_from_json()
 
     def generate_labyrinth_from_json(self):
         """ This function loads the labyrinth's structure into a list
@@ -112,6 +119,7 @@ class Level:
             print("Destination unknown")
 
     def print_level(self, screen):
+        """ this method loads the labyrinth """
         wall_images = pygame.image.load("sources/wall-tiles-40x40.png").convert_alpha()
         zone = pygame.Surface((40, 40))
 
@@ -119,38 +127,16 @@ class Level:
         for line in self.structure:
             num_stripe = 0
             for stripe in line:
-                x = num_stripe * 40
-                y = num_line * 40
+                x_case = num_stripe * 40
+                y_case = num_line * 40
                 if stripe == "#":
                     zone.blit(wall_images, (0, 0), (300, 20, 40, 40))
-                    screen.blit(zone, (x, y))
+                    screen.blit(zone, (x_case, y_case))
                 else:
                     zone.blit(wall_images, (0, 0), (100, 0, 40, 40))
-                    screen.blit(zone, (x, y))
+                    screen.blit(zone, (x_case, y_case))
                 num_stripe += 1
             num_line += 1
-
-    def ZZZ_print_labyrinth_into_terminal(self):
-        """ This method prints the labyrinth. """
-
-        for line in self.structure:
-            line = ''.join(line)
-            print(line)
-
-    def ZZZ_update_labyrinth_structure(self, character):
-        """ This method updates the labyrinth according the movement of one character """
-
-        self.structure[character.y_position][character.x_position] = character.face
-
-        if character.direction is not None:
-            if character.direction == "droite":
-                self.structure[character.y_position][character.x_position - 1] = "O"
-            elif character.direction == "gauche":
-                self.structure[character.y_position][character.x_position + 1] = "O"
-            elif character.direction == "haut":
-                self.structure[character.y_position + 1][character.x_position] = "O"
-            elif character.direction == "bas":
-                self.structure[character.y_position - 1][character.x_position] = "O"
 
 class Object:
     """ This class creates the object and position them on the labyrinth"""
@@ -178,11 +164,16 @@ class Object:
 
 def main():
     pygame.init()
+    window = pygame.display.set_mode((1000, 1000))
 
-    screen = pygame.display.set_mode((600, 600))
+    screen_play = pygame.Surface((600, 600))
+    labyrinth = Level("labyrinthe.json", "line")
 
     game = 1
     while game:
+        pygame.draw.rect(window, (255, 255, 255), (0, 0, 1000, 1000))
+        window.blit(screen_play, (200, 200))
+        labyrinth.print_level(screen_play)
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 game = 0
