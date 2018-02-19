@@ -6,6 +6,7 @@ import sys
 import json
 import random
 
+import pygame
 
 class Character:
     """ This class creates the characters for the game """
@@ -110,14 +111,14 @@ class Level:
         except:
             print("Destination unknown")
 
-    def print_labyrinth_into_terminal(self):
+    def ZZZ_print_labyrinth_into_terminal(self):
         """ This method prints the labyrinth. """
 
         for line in self.structure:
             line = ''.join(line)
             print(line)
 
-    def update_labyrinth_structure(self, character):
+    def ZZZ_update_labyrinth_structure(self, character):
         """ This method updates the labyrinth according the movement of one character """
 
         self.structure[character.y_position][character.x_position] = character.face
@@ -157,54 +158,19 @@ class Object:
         self.x_position = winner_location[1]
 
 def main():
-    """ main function of the program """
-    # Welcome message
-    print("\n##########################################")
-    print("Aide MacGyver à s'échapper du labyrinthe!")
-    print("##########################################\n")
+    pygame.init()
 
-    # Initialization of the labyrinth
-    labyrinth = Level('labyrinthe.json', 'line')
-    labyrinth.generate_labyrinth_from_json()
+    screen = pygame.display.set_mode((600, 600))
 
-    # Character Initialization + Labyrinth's structure update
-    macgyver = Character(1, 1, 'X')
-    labyrinth.update_labyrinth_structure(macgyver)
-    guardian = Character(14, 12, 'F')
-    labyrinth.update_labyrinth_structure(guardian)
+    game = 1
+    while game:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                game = 0
+        pygame.display.flip()
 
-    # Objects Initialization
-    needle = Object("N")
-    needle.get_position(labyrinth.structure)
-    labyrinth.update_labyrinth_structure(needle)
-    tube = Object("T")
-    tube.get_position(labyrinth.structure)
-    labyrinth.update_labyrinth_structure(tube)
-    ether = Object("E")
-    ether.get_position(labyrinth.structure)
-    labyrinth.update_labyrinth_structure(ether)
+    pygame.quit()
 
-    # Print labyrinth with characters and objects on their initial position
-    labyrinth.print_labyrinth_into_terminal()
-
-    # Start game
-    while True:
-        # Ask Direction to the player
-        print("\n ----------")
-        print("Dans quel direction souhaites-tu diriger MacGyver?")
-        print("Tape droite pour aller à droite")
-        print("Tape gauche pour aller à gauche")
-        print("Tape haut pour aller en haut")
-        print("Tape bas pour aller en bas")
-        direction = input("Ton choix : ")
-        direction = direction.lower()
-        print("----------\n")
-        print("La direction que tu as choisie: {}\n".format(direction))
-
-        # Move MacGyver according the direction
-        macgyver.move(direction, labyrinth.structure)
-        labyrinth.update_labyrinth_structure(macgyver)
-        labyrinth.print_labyrinth_into_terminal()
 
 if __name__ == "__main__":
     main()
