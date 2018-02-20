@@ -17,6 +17,7 @@ class Item:
 
     def __get_image(self):
         """ This private method selects the equipements to load from equipment-32x32.png """
+
         object_selection_images = pygame.image.load("sources/equipment-32x32.png").convert_alpha()
         object_image = object_selection_images.subsurface((0, 0, 32, 32))
 
