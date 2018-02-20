@@ -5,6 +5,7 @@ import pygame
 
 from level import *
 from character import *
+from item import *
 
 class Game:
 
@@ -16,6 +17,10 @@ class Game:
         self.labyrinth = Level(self.level, 'line')
         self.hero = Character("hero")
         self.bad_guy = Character("bad_guy")
+
+        self.needle = Object()
+        self.tube = Object()
+        self.ether = Object()
 
         self.play_game = True
 

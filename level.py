@@ -21,20 +21,20 @@ class Level:
         self.__generate_labyrinth_from_json()
 
     def __get_wall_image(self):
-        """ This private method selects the wall to print from wall-tiles-40x40.png  """
+        """ This private method selects the wall to load from wall-tiles-40x40.png  """
 
         wall_selection_images = pygame.image.load("sources/wall-tiles-40x40.png").convert_alpha()
-        wall = wall_selection_images.subsurface((300, 20, 40, 40))
+        wall_image = wall_selection_images.subsurface((300, 20, 40, 40))
 
-        return wall
+        return wall_image
 
     def __get_floor_image(self):
         """ This private method selects the florr to load from floor-tiles-20x20.png  """
 
         floor_selection_images = pygame.image.load("sources/floor-tiles-20x20.png").convert_alpha()
-        floor = floor_selection_images.subsurface((240, 120, 40, 20))
+        floor_image = floor_selection_images.subsurface((240, 120, 40, 20))
 
-        return floor
+        return floor_image
 
     def __generate_labyrinth_from_json(self):
         """ This private method loads the labyrinth's structure into a list
