@@ -5,6 +5,8 @@ import sys
 
 import pygame
 
+from constants import *
+
 class Character:
     """ This class creates the characters for the game """
 
@@ -33,9 +35,9 @@ class Character:
         """ This method generate the stripe face of the character according his role """
 
         if self.role == "hero":
-            stripe_face = "X"
+            stripe_face = HERO_STRIPE
         else:
-            stripe_face = "F"
+            stripe_face = BAD_GUY_STRIPE
 
         return stripe_face
 

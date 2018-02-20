@@ -6,6 +6,8 @@ import json
 
 import pygame
 
+from constants import *
+
 class Level:
     """ This class creates the Labyrinth which will be used for the game
     from a Json file located in the folder named sources/ """
@@ -17,8 +19,8 @@ class Level:
         self.structure = []
         self.wall_image = self.__get_wall_image()
         self.floor_image = self.__get_floor_image()
-        self.wall_stripe_face = "#"
-        self.floor_stripe_face = "O"
+        self.wall_stripe_face = WALL_STRIPE
+        self.floor_stripe_face = FLOOR_STRIPE
 
         self.__generate_labyrinth_from_json()
 

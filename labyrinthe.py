@@ -4,10 +4,11 @@
 import pygame
 
 from game import *
+from constants import *
 
 def main():
     pygame.init()
-    window = pygame.display.set_mode((800, 800))
+    window = pygame.display.set_mode((X_WINDOW_GAME, Y_WINDOW_GAME))
 
     game = Game(window, "labyrinthe.json")
 

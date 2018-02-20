@@ -7,21 +7,22 @@ import pygame
 from level import *
 from character import *
 from item import *
+from constants import *
 
 class Game:
 
     def __init__(self, window, level):
         self.window = window
         self.level = level
-        self.screen_interaction = pygame.Surface((600, 600))
+        self.screen_interaction = pygame.Surface((X_SCREEN_INTERACTION, Y_SCREEN_INTERACTION))
 
         self.labyrinth = Level(self.level, 'line')
         self.hero = Character("hero")
         self.bad_guy = Character("bad_guy")
 
-        self.needle = Item("N")
-        self.tube = Item("T")
-        self.ether = Item("E")
+        self.needle = Item(NEEDLE_STRIPE)
+        self.tube = Item(TUBE_STRIPE)
+        self.ether = Item(ETHER_STRIPE)
 
         self.play_game = True
 
@@ -55,7 +56,7 @@ class Game:
         valid_location = []
         for index_line, line in enumerate(self.labyrinth.structure):
             for index_stripe, stripe in enumerate(line):
-                if stripe == "O":
+                if stripe == self.labyrinth.floor_stripe_face:
                     valid_location.append([index_line, index_stripe])
 
         winner_location = random.choice(valid_location)
@@ -65,14 +66,14 @@ class Game:
     def __update_level_design(self, screen):
         """ This method updates the image of labyrinth zone according the labyrinth structure """
 
-        zone = pygame.Surface((40, 40))
+        zone = pygame.Surface((X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
 
         num_line = 0
         for line in self.labyrinth.structure:
             num_stripe = 0
             for stripe in line:
-                x_corner_top_left = num_stripe * 40
-                y_corner_top_left = num_line * 40
+                x_corner_top_left = num_stripe * X_LEVEL_DIM_CASE
+                y_corner_top_left = num_line * Y_LEVEL_DIM_CASE
                 if stripe == self.labyrinth.wall_stripe_face:
                     zone.blit(self.labyrinth.wall_image, (0, 0))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
@@ -83,12 +84,12 @@ class Game:
                 elif stripe == self.hero.stripe_face:
                     zone.blit(self.labyrinth.floor_image, (0, 0))
                     zone.blit(self.labyrinth.floor_image, (0, 20))
-                    zone.blit(self.hero.image, (4, 0), (0, 0, 40, 40))
+                    zone.blit(self.hero.image, (4, 0), (0, 0, X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
                 elif stripe == self.bad_guy.stripe_face:
                     zone.blit(self.labyrinth.floor_image, (0, 0))
                     zone.blit(self.labyrinth.floor_image, (0, 20))
-                    zone.blit(self.bad_guy.image, (4, 4), (0, 0, 40, 40))
+                    zone.blit(self.bad_guy.image, (4, 4), (0, 0, X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
                 elif stripe == self.needle.stripe_face:
                     zone.blit(self.labyrinth.floor_image, (0, 0))
@@ -111,5 +112,5 @@ class Game:
     def update_screen(self):
         """ This method updates the labyrinth screens """
 
-        self.window.blit(self.screen_interaction, (100, 100))
+        self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
         self.__update_level_design(self.screen_interaction)
