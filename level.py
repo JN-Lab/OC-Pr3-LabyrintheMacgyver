@@ -17,6 +17,8 @@ class Level:
         self.structure = []
         self.wall_image = self.__get_wall_image()
         self.floor_image = self.__get_floor_image()
+        self.wall_stripe_face = "#"
+        self.floor_stripe_face = "O"
 
         self.__generate_labyrinth_from_json()
 
