@@ -8,9 +8,17 @@ class Object:
 
     def __init__(self):
         """ This method gives the attribute to the Object's item """
-        self.x_position = 0
-        self.y_position = 0
-        self.image = pygame.image.load("sources/equipement-32x32.png")
+        self.x_index = 0
+        self.y_index = 0
+        self.image = self.get_image()
+
+    def get_image(self):
+        image_source = pygame.image.load("sources/equipement-32x32.png").convert_alpha()
+        zone = pygame.Surface((40, 40))
+
+        image = zone.blit(image_source, (4, 4), (0, 0, 40, 40))
+
+        return image
 
     def get_position(self, labyrinth_structure):
         """ This method selects a random valid place in the labyrinth
@@ -23,5 +31,5 @@ class Object:
                 else:
                     pass
         winner_location = random.choice(valid_location)
-        self.y_position = winner_location[0]
-        self.x_position = winner_location[1]
+        self.y_index = winner_location[0]
+        self.x_index = winner_location[1]

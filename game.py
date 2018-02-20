@@ -22,8 +22,9 @@ class Game:
         self.__prepare()
 
     def __prepare(self):
-        """ Thie method positions the characters and objects in the labyrinth structure """
+        """ This method positions the characters and objects in the labyrinth structure """
 
+        # Define Characters' position
         self.hero.x_index = 1
         self.hero.y_index = 1
         self.bad_guy.x_index = 14
@@ -31,6 +32,8 @@ class Game:
 
         self.labyrinth.structure[self.hero.y_index][self.hero.x_index] = self.hero.stripe_face
         self.labyrinth.structure[self.bad_guy.y_index][self.bad_guy.x_index] = self.bad_guy.stripe_face
+
+        # Define Objects' position
 
     def __update_level_design(self, screen):
         # Lire la structure du niveau
@@ -44,20 +47,20 @@ class Game:
                 x_corner_top_left = num_stripe * 40
                 y_corner_top_left = num_line * 40
                 if stripe == "#":
-                    zone.blit(self.labyrinth.wall_images, (0, 0), (300, 20, 40, 40))
+                    zone.blit(self.labyrinth.wall_image, (0, 0))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
                 elif stripe == "O":
-                    zone.blit(self.labyrinth.floor_images, (0, 0), (240, 120, 40, 20))
-                    zone.blit(self.labyrinth.floor_images, (0, 20), (240, 120, 40, 20))
+                    zone.blit(self.labyrinth.floor_image, (0, 0))
+                    zone.blit(self.labyrinth.floor_image, (0, 20))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
                 elif stripe == "X":
-                    zone.blit(self.labyrinth.floor_images, (0, 0), (240, 120, 40, 20))
-                    zone.blit(self.labyrinth.floor_images, (0, 20), (240, 120, 40, 20))
+                    zone.blit(self.labyrinth.floor_image, (0, 0))
+                    zone.blit(self.labyrinth.floor_image, (0, 20))
                     zone.blit(self.hero.image, (4, 0), (0, 0, 40, 40))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
                 elif stripe == "F":
-                    zone.blit(self.labyrinth.floor_images, (0, 0), (240, 120, 40, 20))
-                    zone.blit(self.labyrinth.floor_images, (0, 20), (240, 120, 40, 20))
+                    zone.blit(self.labyrinth.floor_image, (0, 0))
+                    zone.blit(self.labyrinth.floor_image, (0, 20))
                     zone.blit(self.bad_guy.image, (4, 4), (0, 0, 40, 40))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
                 num_stripe += 1

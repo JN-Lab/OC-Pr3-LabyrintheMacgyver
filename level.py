@@ -15,13 +15,29 @@ class Level:
         self.data_file = data_file
         self.key = key # It is the attribute in Json file
         self.structure = []
-        self.wall_images = pygame.image.load("sources/wall-tiles-40x40.png").convert_alpha()
-        self.floor_images = pygame.image.load("sources/floor-tiles-20x20.png").convert_alpha()
+        self.wall_image = self.__get_wall_image()
+        self.floor_image = self.__get_floor_image()
 
         self.__generate_labyrinth_from_json()
 
+    def __get_wall_image(self):
+        """ This private method selects the wall to print from wall-tiles-40x40.png  """
+
+        wall_selection_images = pygame.image.load("sources/wall-tiles-40x40.png").convert_alpha()
+        wall = wall_selection_images.subsurface((300, 20, 40, 40))
+
+        return wall
+
+    def __get_floor_image(self):
+        """ This private method selects the florr to load from floor-tiles-20x20.png  """
+
+        floor_selection_images = pygame.image.load("sources/floor-tiles-20x20.png").convert_alpha()
+        floor = floor_selection_images.subsurface((240, 120, 40, 20))
+
+        return floor
+
     def __generate_labyrinth_from_json(self):
-        """ This function loads the labyrinth's structure into a list
+        """ This private method loads the labyrinth's structure into a list
         containing each line. Each line is a list containing each stripe.
         example : structure = [[stripe1_from_line1, stripe2_from_line1,...],
         [stripe1_from_line2, stripe2_from_line2,...],...] """
