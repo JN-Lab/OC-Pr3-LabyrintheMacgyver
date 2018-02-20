@@ -3,16 +3,28 @@
 
 import sys
 
+import pygame
+
 class Character:
     """ This class creates the characters for the game """
 
-    def __init__(self, x_position, y_position, face):
+    def __init__(self, role):
         """ This method gives the different attributes to the character's object """
-        self.x_position = x_position
-        self.y_position = y_position
-        self.face = face
+        self.x_position = 0
+        self.y_position = 0
+        self.role = role
+        self.image = self.get_image()
+
         self.numb_items = 0
         self.direction = ""
+
+    def get_image(self):
+        if self.role == "hero":
+            image = pygame.image.load("sources/macgyver-32x43.png").convert_alpha()
+        else:
+            image = pygame.image.load("sources/murdoc-32.png").convert_alpha()
+
+        return image
 
     def move(self, direction, labyrinth_structure):
         """ This method allows the character to move on the top, the right, the bottom
