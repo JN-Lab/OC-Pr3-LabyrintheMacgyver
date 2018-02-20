@@ -19,13 +19,20 @@ class Game:
 
         self.play_game = True
 
+        self.__prepare()
 
-    def prepare(self):
-        """ This methd resets the game if needed """
-        self.play_game = True
-        self.labyrinth = Level(self.level, 'line')
+    def __prepare(self):
+        """ Thie method positions the characters and objects in the labyrinth structure """
 
-    def update_level_design(self, screen):
+        self.hero.x_index = 1
+        self.hero.y_index = 1
+        self.bad_guy.x_index = 14
+        self.bad_guy.y_index = 12
+
+        self.labyrinth.structure[self.hero.y_index][self.hero.x_index] = self.hero.stripe_face
+        self.labyrinth.structure[self.bad_guy.y_index][self.bad_guy.x_index] = self.bad_guy.stripe_face
+
+    def __update_level_design(self, screen):
         # Lire la structure du niveau
         # En fonction des stripes du niveau, j'y assigne les bonnes zones
         zone = pygame.Surface((40, 40))
@@ -59,4 +66,4 @@ class Game:
     def update_screen(self):
 
         self.window.blit(self.screen_interaction, (100, 100))
-        self.update_level_design(self.screen_interaction)
+        self.__update_level_design(self.screen_interaction)

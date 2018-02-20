@@ -6,12 +6,11 @@ import random
 class Object:
     """ This class creates the object and position them on the labyrinth"""
 
-    def __init__(self, face):
+    def __init__(self):
         """ This method gives the attribute to the Object's item """
         self.x_position = 0
         self.y_position = 0
-        self.face = face
-        self.direction = ""
+        self.image = pygame.image.load("sources/equipement-32x32.png")
 
     def get_position(self, labyrinth_structure):
         """ This method selects a random valid place in the labyrinth

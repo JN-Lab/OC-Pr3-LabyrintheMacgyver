@@ -1,6 +1,6 @@
 [
   {"line": "###############"},
-  {"line": "#XOOOOOOOOOOOO#"},
+  {"line": "#OOOOOOOOOOOOO#"},
   {"line": "#OOO#O##OO#O#O#"},
   {"line": "#O###O#OO#OO#O#"},
   {"line": "#OOO#O####OO#O#"},
@@ -11,7 +11,7 @@
   {"line": "#OOO#O#O#OO#OO#"},
   {"line": "####OO#O##O#O##"},
   {"line": "#OOOOO#OOO#OOO#"},
-  {"line": "#OOO####OOO##OF"},
+  {"line": "#OOO####OOO##OO"},
   {"line": "#OOOOOOOO#OO#O#"},
   {"line": "###############"}
 ]

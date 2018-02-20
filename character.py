@@ -10,21 +10,34 @@ class Character:
 
     def __init__(self, role):
         """ This method gives the different attributes to the character's object """
-        self.x_position = 0
-        self.y_position = 0
+        self.x_index = 0
+        self.y_index = 0
         self.role = role
-        self.image = self.get_image()
+        self.image = self.__get_image()
+        self.stripe_face = self.__get_stripe_face()
 
         self.numb_items = 0
         self.direction = ""
 
-    def get_image(self):
+    def __get_image(self):
+        """ This method generates the image of the character according his role """
+
         if self.role == "hero":
-            image = pygame.image.load("sources/macgyver-32x43.png").convert()
+            image = pygame.image.load("sources/macgyver-32x43.png").convert_alpha()
         else:
-            image = pygame.image.load("sources/murdoc-32.png").convert()
+            image = pygame.image.load("sources/murdoc-32.png").convert_alpha()
 
         return image
+
+    def __get_stripe_face(self):
+        """ This method generate the stripe face of the character according his role """
+
+        if self.role == "hero":
+            stripe_face = "X"
+        else:
+            stripe_face = "F"
+
+        return stripe_face
 
     def move(self, direction, labyrinth_structure):
         """ This method allows the character to move on the top, the right, the bottom
@@ -36,33 +49,33 @@ class Character:
         next_case_face = ""
 
         if direction == "droite":
-            next_case_face = labyrinth_structure[self.y_position][self.x_position + 1]
+            next_case_face = labyrinth_structure[self.y_index][self.x_index + 1]
             if next_case_face != "#":
-                self.x_position += 1
+                self.x_index += 1
                 if next_case_face != "O":
                     self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "gauche":
-            next_case_face = labyrinth_structure[self.y_position][self.x_position - 1]
+            next_case_face = labyrinth_structure[self.y_index][self.x_index - 1]
             if next_case_face != "#":
-                self.x_position -= 1
+                self.x_index -= 1
                 if next_case_face != "O":
                     self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "haut":
-            next_case_face = labyrinth_structure[self.y_position - 1][self.x_position]
+            next_case_face = labyrinth_structure[self.y_index - 1][self.x_index]
             if next_case_face != "#":
-                self.y_position -= 1
+                self.y_index -= 1
                 if next_case_face != "O":
                     self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "bas":
-            next_case_face = labyrinth_structure[self.y_position + 1][self.x_position]
+            next_case_face = labyrinth_structure[self.y_index + 1][self.x_index]
             if next_case_face != "#":
-                self.y_position += 1
+                self.y_index += 1
                 if next_case_face != "O":
                     self.__touch(next_case_face)
             else:
