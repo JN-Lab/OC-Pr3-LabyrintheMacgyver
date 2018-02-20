@@ -15,6 +15,7 @@ class Game:
 
         self.labyrinth = Level(self.level, 'line')
         self.hero = Character("hero")
+        self.bad_guy = Character("bad_guy")
 
         self.play_game = True
 
@@ -38,8 +39,19 @@ class Game:
                 if stripe == "#":
                     zone.blit(self.labyrinth.wall_images, (0, 0), (300, 20, 40, 40))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
-                else:
-                    zone.blit(self.labyrinth.wall_images, (0, 0), (100, 0, 40, 40))
+                elif stripe == "O":
+                    zone.blit(self.labyrinth.floor_images, (0, 0), (240, 120, 40, 20))
+                    zone.blit(self.labyrinth.floor_images, (0, 20), (240, 120, 40, 20))
+                    screen.blit(zone, (x_corner_top_left, y_corner_top_left))
+                elif stripe == "X":
+                    zone.blit(self.labyrinth.floor_images, (0, 0), (240, 120, 40, 20))
+                    zone.blit(self.labyrinth.floor_images, (0, 20), (240, 120, 40, 20))
+                    zone.blit(self.hero.image, (4, 0), (0, 0, 40, 40))
+                    screen.blit(zone, (x_corner_top_left, y_corner_top_left))
+                elif stripe == "F":
+                    zone.blit(self.labyrinth.floor_images, (0, 0), (240, 120, 40, 20))
+                    zone.blit(self.labyrinth.floor_images, (0, 20), (240, 120, 40, 20))
+                    zone.blit(self.bad_guy.image, (4, 4), (0, 0, 40, 40))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
                 num_stripe += 1
             num_line += 1

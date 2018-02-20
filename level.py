@@ -10,17 +10,13 @@ class Level:
     """ This class creates the Labyrinth which will be used for the game
     from a Json file located in the folder named sources/ """
 
-    MIN_Y_AXIS = 0
-    MAX_Y_AXIS = 14
-    MIN_X_AXIS = 0
-    MAX_X_AXIS = 14
-
     def __init__(self, data_file, key):
         """ This method gives the different attributes to the Level's labyrinth """
         self.data_file = data_file
         self.key = key # It is the attribute in Json file
         self.structure = []
         self.wall_images = pygame.image.load("sources/wall-tiles-40x40.png").convert_alpha()
+        self.floor_images = pygame.image.load("sources/floor-tiles-20x20.png").convert_alpha()
 
         self.__generate_labyrinth_from_json()
 

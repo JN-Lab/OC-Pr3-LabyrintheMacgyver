@@ -20,9 +20,9 @@ class Character:
 
     def get_image(self):
         if self.role == "hero":
-            image = pygame.image.load("sources/macgyver-32x43.png").convert_alpha()
+            image = pygame.image.load("sources/macgyver-32x43.png").convert()
         else:
-            image = pygame.image.load("sources/murdoc-32.png").convert_alpha()
+            image = pygame.image.load("sources/murdoc-32.png").convert()
 
         return image
 
