@@ -52,7 +52,7 @@ class Character:
         self.direction = direction
         next_case_face = ""
 
-        if direction == "droite":
+        if direction == "right":
             next_case_face = labyrinth_structure[self.y_index][self.x_index + 1]
             if next_case_face != WALL_STRIPE:
                 self.x_index += 1
@@ -61,7 +61,7 @@ class Character:
                 self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
-        elif direction == "gauche":
+        elif direction == "left":
             next_case_face = labyrinth_structure[self.y_index][self.x_index - 1]
             if next_case_face != WALL_STRIPE:
                 self.x_index -= 1
@@ -70,7 +70,7 @@ class Character:
                 self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
-        elif direction == "haut":
+        elif direction == "up":
             next_case_face = labyrinth_structure[self.y_index - 1][self.x_index]
             if next_case_face != WALL_STRIPE:
                 self.y_index -= 1
@@ -79,7 +79,7 @@ class Character:
                 self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
-        elif direction == "bas":
+        elif direction == "down":
             next_case_face = labyrinth_structure[self.y_index + 1][self.x_index]
             if next_case_face != WALL_STRIPE:
                 self.y_index += 1

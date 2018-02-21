@@ -12,13 +12,18 @@ def main():
     background = pygame.image.load("sources/background-jail-800x800.jpg").convert()
 
     play = 1
-    game = Game(window, "labyrinthe.json", play)
+    game = Game(window, "labyrinthe.json")
 
     while play:
         window.blit(background, (0, 0))
 
-        game.start()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                play = 0
+            elif event.type == pygame.KEYDOWN:
+                game.start(event)
 
+        game.update_level_screen()
         pygame.display.flip()
 
     pygame.quit()

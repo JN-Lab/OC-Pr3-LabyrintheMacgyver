@@ -70,11 +70,11 @@ class Level:
         self.structure[character.y_index][character.x_index] = character.stripe_face
 
         if character.direction is not None and character.success_deplacement:
-            if character.direction == "droite":
+            if character.direction == "right":
                 self.structure[character.y_index][character.x_index - 1] = FLOOR_STRIPE
-            elif character.direction == "gauche":
+            elif character.direction == "left":
                 self.structure[character.y_index][character.x_index + 1] = FLOOR_STRIPE
-            elif character.direction == "haut":
+            elif character.direction == "up":
                 self.structure[character.y_index + 1][character.x_index] = FLOOR_STRIPE
-            elif character.direction == "bas":
+            elif character.direction == "down":
                 self.structure[character.y_index - 1][character.x_index] = FLOOR_STRIPE
