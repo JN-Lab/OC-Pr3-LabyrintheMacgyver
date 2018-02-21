@@ -130,6 +130,7 @@ class Game:
 
         # Creation of game statut
         game_statut = pygame.Surface((600, 80))
+        game_statut.fill(DARKGRAY)
         text_statut = choice_text.render("PRET A JOUER?", True, WHITE)
         text_statut_position = text_statut.get_rect()
         text_statut_position.centerx = game_statut.get_rect().centerx
@@ -138,6 +139,7 @@ class Game:
 
         # Creation of play button
         play_button = pygame.Surface((300, 80))
+        play_button.fill(DARKGRAY)
         pygame.draw.rect(play_button, WHITE, (0, 0, 300, 80), 2)
         play_text = choice_text.render("PLAY", True, WHITE)
         play_text_position = play_text.get_rect()
@@ -147,6 +149,7 @@ class Game:
 
         # Creation of quit button
         quit_button = pygame.Surface((300, 80))
+        quit_button.fill(DARKGRAY)
         pygame.draw.rect(quit_button, WHITE, (0, 0, 300, 80), 2)
         quit_text = choice_text.render("QUIT", True, WHITE)
         quit_text_position = quit_text.get_rect()
@@ -161,6 +164,7 @@ class Game:
 
     def update_screen_interaction(self):
         """ This method updates the labyrinth screens """
+        self.screen_interaction.fill(DARKGRAY)
         if self.menu:
             self.__update_menu_design(self.screen_interaction)
         elif self.play_game:
@@ -169,7 +173,36 @@ class Game:
 
         self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
 
+    def __process_event_menu(self, event: pygame.event):
+        pass
+
+    #def __update_button_menu_design(self, selected_button):
+        #selected_button = play_game
+        #if selected_button == play_game:
+            #bouton play_game = texte blanc et contour blanc
+            #bouton quit_game = texte noir et contour noir
+        #elif selected_button == quit_game:
+            #bouton play_game = texte noir et contour noir
+            #bouton quit_game = texte blanc et contour blanc
+
+    #def __interact_with_button_menu(self, selected_button):
+        #if selected_button == play_game and event.key == pygame.K_DOWN:
+            #selected_button = quit_game
+        #elif selected_button == quit_game and event.key == pyagme.K_UP:
+            #selected_button = play_game
+
+    #def __select_option_menu(self, selected_button):
+        #if selected_button == play_game and event.key == pygame.K_KP_ENTER:
+            #self.menu = False
+            #self.play_game = True
+        #elif selected_button == quit_game and event.key == pygame.K_KP_ENTER:
+            #self.menu = False
+            #self.play_game = False
+        pass
+
+
     def __process_event_game(self, event: pygame.event):
+        """ This method manages the process of the game """
         if event.key == pygame.K_RIGHT:
             self.hero.move("right", self.labyrinth.structure)
             self.labyrinth.update_labyrint_structure(self.hero)
@@ -194,6 +227,11 @@ class Game:
         """ This method loads the game """
         if self.menu:
             pass
+            #self.__process_event_menu(event)
+            #return 1
         elif self.play_game:
             self.__process_event_game(event)
             #self.__process_end_game(event)
+            #return 1
+        #else:
+            #return 0
