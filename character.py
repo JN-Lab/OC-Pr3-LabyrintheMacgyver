@@ -52,33 +52,33 @@ class Character:
 
         if direction == "droite":
             next_case_face = labyrinth_structure[self.y_index][self.x_index + 1]
-            if next_case_face != "#":
+            if next_case_face != WALL_STRIPE:
                 self.x_index += 1
-                if next_case_face != "O":
+                if next_case_face != FLOOR_STRIPE:
                     self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "gauche":
             next_case_face = labyrinth_structure[self.y_index][self.x_index - 1]
-            if next_case_face != "#":
+            if next_case_face != WALL_STRIPE:
                 self.x_index -= 1
-                if next_case_face != "O":
+                if next_case_face != FLOOR_STRIPE:
                     self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "haut":
             next_case_face = labyrinth_structure[self.y_index - 1][self.x_index]
-            if next_case_face != "#":
+            if next_case_face != WALL_STRIPE:
                 self.y_index -= 1
-                if next_case_face != "O":
+                if next_case_face != FLOOR_STRIPE:
                     self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "bas":
             next_case_face = labyrinth_structure[self.y_index + 1][self.x_index]
-            if next_case_face != "#":
+            if next_case_face != WALL_STRIPE:
                 self.y_index += 1
-                if next_case_face != "O":
+                if next_case_face != FLOOR_STRIPE:
                     self.__touch(next_case_face)
             else:
                 print("Pas possible. C'est un mur!\n")

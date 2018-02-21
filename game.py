@@ -74,34 +74,34 @@ class Game:
             for stripe in line:
                 x_corner_top_left = num_stripe * X_LEVEL_DIM_CASE
                 y_corner_top_left = num_line * Y_LEVEL_DIM_CASE
-                if stripe == self.labyrinth.wall_stripe_face:
+                if stripe == WALL_STRIPE:
                     zone.blit(self.labyrinth.wall_image, (0, 0))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
-                elif stripe == self.labyrinth.floor_stripe_face:
+                elif stripe == FLOOR_STRIPE:
                     zone.blit(self.labyrinth.floor_image, (0, 0))
                     zone.blit(self.labyrinth.floor_image, (0, 20))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
-                elif stripe == self.hero.stripe_face:
+                elif stripe == HERO_STRIPE:
                     zone.blit(self.labyrinth.floor_image, (0, 0))
                     zone.blit(self.labyrinth.floor_image, (0, 20))
                     zone.blit(self.hero.image, (4, 0), (0, 0, X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
-                elif stripe == self.bad_guy.stripe_face:
+                elif stripe == BAD_GUY_STRIPE:
                     zone.blit(self.labyrinth.floor_image, (0, 0))
                     zone.blit(self.labyrinth.floor_image, (0, 20))
                     zone.blit(self.bad_guy.image, (4, 4), (0, 0, X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
-                elif stripe == self.needle.stripe_face:
+                elif stripe == NEEDLE_STRIPE:
                     zone.blit(self.labyrinth.floor_image, (0, 0))
                     zone.blit(self.labyrinth.floor_image, (0, 20))
                     zone.blit(self.needle.object_image, (4, 4))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
-                elif stripe == self.tube.stripe_face:
+                elif stripe == TUBE_STRIPE:
                     zone.blit(self.labyrinth.floor_image, (0, 0))
                     zone.blit(self.labyrinth.floor_image, (0, 20))
                     zone.blit(self.tube.object_image, (4, 4))
                     screen.blit(zone, (x_corner_top_left, y_corner_top_left))
-                elif stripe == self.ether.stripe_face:
+                elif stripe == ETHER_STRIPE:
                     zone.blit(self.labyrinth.floor_image, (0, 0))
                     zone.blit(self.labyrinth.floor_image, (0, 20))
                     zone.blit(self.ether.object_image, (4, 4))
@@ -114,3 +114,13 @@ class Game:
 
         self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
         self.__update_level_design(self.screen_interaction)
+
+    def start(self):
+
+        #while self.play_game:
+            #for event in pygame.event.get():
+                #self.process_event(event)
+
+        self.update_screen()
+
+        pygame.display.flip()
