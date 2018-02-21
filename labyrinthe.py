@@ -23,7 +23,7 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 game.start(event)
 
-        game.update_level_screen()
+        game.update_interaction_screen()
         pygame.display.flip()
 
     pygame.quit()

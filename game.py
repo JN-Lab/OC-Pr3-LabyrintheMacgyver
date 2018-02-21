@@ -65,9 +65,9 @@ class Game:
         item.x_index = winner_location[1]
 
     def __update_level_design(self, screen):
-        """ This method updates the image of labyrinth zone according the labyrinth structure """
+        """ This method updates the image of labyrinth labyrinth_case according the labyrinth structure """
 
-        zone = pygame.Surface((X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
+        labyrinth_case = pygame.Surface((X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
 
         num_line = 0
         for line in self.labyrinth.structure:
@@ -76,45 +76,52 @@ class Game:
                 x_corner_top_left = num_stripe * X_LEVEL_DIM_CASE
                 y_corner_top_left = num_line * Y_LEVEL_DIM_CASE
                 if stripe == WALL_STRIPE:
-                    zone.blit(self.labyrinth.wall_image, (0, 0))
-                    screen.blit(zone, (x_corner_top_left, y_corner_top_left))
+                    labyrinth_case.blit(self.labyrinth.wall_image, (0, 0))
+                    screen.blit(labyrinth_case, (x_corner_top_left, y_corner_top_left))
                 elif stripe == FLOOR_STRIPE:
-                    zone.blit(self.labyrinth.floor_image, (0, 0))
-                    zone.blit(self.labyrinth.floor_image, (0, 20))
-                    screen.blit(zone, (x_corner_top_left, y_corner_top_left))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 0))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 20))
+                    screen.blit(labyrinth_case, (x_corner_top_left, y_corner_top_left))
                 elif stripe == HERO_STRIPE:
-                    zone.blit(self.labyrinth.floor_image, (0, 0))
-                    zone.blit(self.labyrinth.floor_image, (0, 20))
-                    zone.blit(self.hero.image, (4, 0), (0, 0, X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
-                    screen.blit(zone, (x_corner_top_left, y_corner_top_left))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 0))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 20))
+                    labyrinth_case.blit(self.hero.image, (4, 0), (0, 0, X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
+                    screen.blit(labyrinth_case, (x_corner_top_left, y_corner_top_left))
                 elif stripe == BAD_GUY_STRIPE:
-                    zone.blit(self.labyrinth.floor_image, (0, 0))
-                    zone.blit(self.labyrinth.floor_image, (0, 20))
-                    zone.blit(self.bad_guy.image, (4, 4), (0, 0, X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
-                    screen.blit(zone, (x_corner_top_left, y_corner_top_left))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 0))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 20))
+                    labyrinth_case.blit(self.bad_guy.image, (4, 4), (0, 0, X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
+                    screen.blit(labyrinth_case, (x_corner_top_left, y_corner_top_left))
                 elif stripe == NEEDLE_STRIPE:
-                    zone.blit(self.labyrinth.floor_image, (0, 0))
-                    zone.blit(self.labyrinth.floor_image, (0, 20))
-                    zone.blit(self.needle.object_image, (4, 4))
-                    screen.blit(zone, (x_corner_top_left, y_corner_top_left))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 0))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 20))
+                    labyrinth_case.blit(self.needle.object_image, (4, 4))
+                    screen.blit(labyrinth_case, (x_corner_top_left, y_corner_top_left))
                 elif stripe == TUBE_STRIPE:
-                    zone.blit(self.labyrinth.floor_image, (0, 0))
-                    zone.blit(self.labyrinth.floor_image, (0, 20))
-                    zone.blit(self.tube.object_image, (4, 4))
-                    screen.blit(zone, (x_corner_top_left, y_corner_top_left))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 0))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 20))
+                    labyrinth_case.blit(self.tube.object_image, (4, 4))
+                    screen.blit(labyrinth_case, (x_corner_top_left, y_corner_top_left))
                 elif stripe == ETHER_STRIPE:
-                    zone.blit(self.labyrinth.floor_image, (0, 0))
-                    zone.blit(self.labyrinth.floor_image, (0, 20))
-                    zone.blit(self.ether.object_image, (4, 4))
-                    screen.blit(zone, (x_corner_top_left, y_corner_top_left))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 0))
+                    labyrinth_case.blit(self.labyrinth.floor_image, (0, 20))
+                    labyrinth_case.blit(self.ether.object_image, (4, 4))
+                    screen.blit(labyrinth_case, (x_corner_top_left, y_corner_top_left))
                 num_stripe += 1
             num_line += 1
 
-    def update_level_screen(self):
+    def __update_level_console(self, screen):
+        """ This method updates the console which contains the number of items collected by the Hero """
+        console = pygame.Surface((600, 100))
+        pygame.draw.rect(console, (180, 20, 150), (0, 0, 600, 50))
+        screen.blit(console, (0, 600))
+
+    def update_interaction_screen(self):
         """ This method updates the labyrinth screens """
 
         self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
         self.__update_level_design(self.screen_interaction)
+        self.__update_level_console(self.screen_interaction)
 
     def __update_menu_design(self, screen):
         pass
