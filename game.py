@@ -24,8 +24,8 @@ class Game:
         self.tube = Item(TUBE_STRIPE)
         self.ether = Item(ETHER_STRIPE)
 
-        self.menu = False
-        self.play_game = True
+        self.menu = True
+        self.play_game = False
 
         self.__prepare()
 
@@ -113,25 +113,60 @@ class Game:
     def __update_level_console(self, screen):
         """ This method updates the console which contains the number of items collected by the Hero """
         console = pygame.Surface((600, 50))
-        console.fill((0, 0, 0))
-
+        console.fill(BLACK)
 
         title_console = pygame.Surface((200, 50))
-
         font_text = pygame.font.SysFont('freesans', 36)
-        item_text = font_text.render("Item Number: ", True, (255, 255, 255))
+        item_text = font_text.render("Item Number: " + str(self.hero.numb_items), True, WHITE)
 
         title_console.blit(item_text, (0, 0))
-        console.blit(title_console, (0, 0))
+        console.blit(title_console, (0, 12))
         screen.blit(console, (0, 600))
+
     def __update_menu_design(self, screen):
-        pass
+        """ This method updates the menu selection """
+        # Get the fonts
+        choice_text = pygame.font.SysFont('freesans', 50)
 
-    def update_interaction_screen(self):
+        # Creation of game statut
+        game_statut = pygame.Surface((600, 80))
+        text_statut = choice_text.render("PRET A JOUER?", True, WHITE)
+        text_statut_position = text_statut.get_rect()
+        text_statut_position.centerx = game_statut.get_rect().centerx
+        text_statut_position.centery = game_statut.get_rect().centery
+        game_statut.blit(text_statut, text_statut_position)
+
+        # Creation of play button
+        play_button = pygame.Surface((300, 80))
+        pygame.draw.rect(play_button, WHITE, (0, 0, 300, 80), 2)
+        play_text = choice_text.render("PLAY", True, WHITE)
+        play_text_position = play_text.get_rect()
+        play_text_position.centerx = play_button.get_rect().centerx
+        play_text_position.centery = play_button.get_rect().centery
+        play_button.blit(play_text, play_text_position)
+
+        # Creation of quit button
+        quit_button = pygame.Surface((300, 80))
+        pygame.draw.rect(quit_button, WHITE, (0, 0, 300, 80), 2)
+        quit_text = choice_text.render("QUIT", True, WHITE)
+        quit_text_position = quit_text.get_rect()
+        quit_text_position.centerx = quit_button.get_rect().centerx
+        quit_text_position.centery = quit_button.get_rect().centery
+        quit_button.blit(quit_text, quit_text_position)
+
+        # Integration of the different elements into screen
+        screen.blit(game_statut, (10, 0))
+        screen.blit(play_button, (150, 300))
+        screen.blit(quit_button, (150, 425))
+
+    def update_screen_interaction(self):
         """ This method updates the labyrinth screens """
+        if self.menu:
+            self.__update_menu_design(self.screen_interaction)
+        elif self.play_game:
+            self.__update_level_design(self.screen_interaction)
+            self.__update_level_console(self.screen_interaction)
 
-        self.__update_level_design(self.screen_interaction)
-        self.__update_level_console(self.screen_interaction)
         self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
 
     def __process_event_game(self, event: pygame.event):
@@ -148,9 +183,17 @@ class Game:
             self.hero.move("down", self.labyrinth.structure)
             self.labyrinth.update_labyrint_structure(self.hero)
 
+    def __process_end_game(self, event: pygame.event):
+        """ this method will determine the statut of the game when Mac Gyver will touch Murdoc """
+        # Si 3 items -> Bravo sinon -> Looser
+        # self.play_game = False
+        # self.menu = True
+        pass
+
     def start(self, event: pygame.event):
         """ This method loads the game """
         if self.menu:
             pass
         elif self.play_game:
             self.__process_event_game(event)
+            #self.__process_end_game(event)
