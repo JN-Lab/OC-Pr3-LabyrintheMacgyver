@@ -112,19 +112,27 @@ class Game:
 
     def __update_level_console(self, screen):
         """ This method updates the console which contains the number of items collected by the Hero """
-        console = pygame.Surface((600, 100))
-        pygame.draw.rect(console, (180, 20, 150), (0, 0, 600, 50))
+        console = pygame.Surface((600, 50))
+        console.fill((0, 0, 0))
+
+
+        title_console = pygame.Surface((200, 50))
+
+        font_text = pygame.font.SysFont('freesans', 36)
+        item_text = font_text.render("Item Number: ", True, (255, 255, 255))
+
+        title_console.blit(item_text, (0, 0))
+        console.blit(title_console, (0, 0))
         screen.blit(console, (0, 600))
+    def __update_menu_design(self, screen):
+        pass
 
     def update_interaction_screen(self):
         """ This method updates the labyrinth screens """
 
-        self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
         self.__update_level_design(self.screen_interaction)
         self.__update_level_console(self.screen_interaction)
-
-    def __update_menu_design(self, screen):
-        pass
+        self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
 
     def __process_event_game(self, event: pygame.event):
         if event.key == pygame.K_RIGHT:
