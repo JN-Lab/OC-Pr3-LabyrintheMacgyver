@@ -11,7 +11,7 @@ from constants import *
 
 class Game:
 
-    def __init__(self, window, level):
+    def __init__(self, window, level, loop_game):
         self.window = window
         self.level = level
         self.screen_interaction = pygame.Surface((X_SCREEN_INTERACTION, Y_SCREEN_INTERACTION))
@@ -24,6 +24,7 @@ class Game:
         self.tube = Item(TUBE_STRIPE)
         self.ether = Item(ETHER_STRIPE)
 
+        self.loop_game = loop_game
         self.menu = False
         self.play_game = True
 
@@ -110,7 +111,7 @@ class Game:
                 num_stripe += 1
             num_line += 1
 
-    def update_level_screen(self):
+    def __update_level_screen(self):
         """ This method updates the labyrinth screens """
 
         self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
@@ -122,22 +123,29 @@ class Game:
     def start(self):
         """ This method loads the game """
 
-        if self.menu:
-            pass
-        if self.play_game:
-            for event in pygame.event.get():
-                print("OK ici")
-                if event.type == pygame.KEYDOWN:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.loop_game = 0
+            elif event.type == pygame.KEYDOWN:
+                if self.menu:
+                    pass
+                elif self.play_game:
                     if event.key == pygame.K_RIGHT:
                         self.hero.move("droite", self.labyrinth.structure)
+                        self.labyrinth.update_labyrint_structure(self.hero)
                         print("a droite")
+                        print(self.hero.x_index)
                     elif event.key == pygame.K_LEFT:
                         self.hero.move("gauche", self.labyrinth.structure)
+                        self.labyrinth.update_labyrint_structure(self.hero)
                         print("a droite")
                     elif event.key == pygame.K_UP:
                         self.hero.move("haut", self.labyrinth.structure)
+                        self.labyrinth.update_labyrint_structure(self.hero)
                         print("a droite")
                     elif event.key == pygame.K_DOWN:
                         self.hero.move("bas", self.labyrinth.structure)
+                        self.labyrinth.update_labyrint_structure(self.hero)
                         print("a droite")
                     print(self.labyrinth.structure)
+        self.__update_level_screen()
