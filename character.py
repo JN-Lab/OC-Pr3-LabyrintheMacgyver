@@ -20,6 +20,7 @@ class Character:
 
         self.numb_items = 0
         self.direction = ""
+        self.success_deplacement = False
 
     def __get_image(self):
         """ This method generates the image of the character according his role """
@@ -47,6 +48,7 @@ class Character:
         of the structure according the movement of the main character. If the
         character reachs the F case, he wins. """
 
+        self.success_deplacement = False
         self.direction = direction
         next_case_face = ""
 
@@ -56,6 +58,7 @@ class Character:
                 self.x_index += 1
                 if next_case_face != FLOOR_STRIPE:
                     self.__touch(next_case_face)
+                self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "gauche":
@@ -64,6 +67,7 @@ class Character:
                 self.x_index -= 1
                 if next_case_face != FLOOR_STRIPE:
                     self.__touch(next_case_face)
+                self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "haut":
@@ -72,6 +76,7 @@ class Character:
                 self.y_index -= 1
                 if next_case_face != FLOOR_STRIPE:
                     self.__touch(next_case_face)
+                self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
         elif direction == "bas":
@@ -80,6 +85,7 @@ class Character:
                 self.y_index += 1
                 if next_case_face != FLOOR_STRIPE:
                     self.__touch(next_case_face)
+                self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
         else:

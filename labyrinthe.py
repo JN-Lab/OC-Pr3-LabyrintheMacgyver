@@ -20,10 +20,26 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 play = 0
-
-        game.start()
-
-
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    game.hero.move("droite", game.labyrinth.structure)
+                    game.labyrinth.update_labyrint_structure(game.hero)
+                    print("a droite")
+                    print(game.hero.x_index)
+                elif event.key == pygame.K_LEFT:
+                    game.hero.move("gauche", game.labyrinth.structure)
+                    game.labyrinth.update_labyrint_structure(game.hero)
+                    print("a droite")
+                elif event.key == pygame.K_UP:
+                    game.hero.move("haut", game.labyrinth.structure)
+                    game.labyrinth.update_labyrint_structure(game.hero)
+                    print("a droite")
+                elif event.key == pygame.K_DOWN:
+                    game.hero.move("bas", game.labyrinth.structure)
+                    game.labyrinth.update_labyrint_structure(game.hero)
+                    print("a droite")
+                print(game.labyrinth.structure)
+        game.update_level_screen()
         pygame.display.flip()
 
     pygame.quit()

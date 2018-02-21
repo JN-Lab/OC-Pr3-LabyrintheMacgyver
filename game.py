@@ -24,6 +24,7 @@ class Game:
         self.tube = Item(TUBE_STRIPE)
         self.ether = Item(ETHER_STRIPE)
 
+        self.menu = False
         self.play_game = True
 
         self.__prepare()
@@ -109,18 +110,34 @@ class Game:
                 num_stripe += 1
             num_line += 1
 
-    def update_screen(self):
+    def update_level_screen(self):
         """ This method updates the labyrinth screens """
 
         self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
         self.__update_level_design(self.screen_interaction)
 
+    def __update_menu_design(self, screen):
+        pass
+
     def start(self):
+        """ This method loads the game """
 
-        #while self.play_game:
-            #for event in pygame.event.get():
-                #self.process_event(event)
-
-        self.update_screen()
-
-        pygame.display.flip()
+        if self.menu:
+            pass
+        if self.play_game:
+            for event in pygame.event.get():
+                print("OK ici")
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:
+                        self.hero.move("droite", self.labyrinth.structure)
+                        print("a droite")
+                    elif event.key == pygame.K_LEFT:
+                        self.hero.move("gauche", self.labyrinth.structure)
+                        print("a droite")
+                    elif event.key == pygame.K_UP:
+                        self.hero.move("haut", self.labyrinth.structure)
+                        print("a droite")
+                    elif event.key == pygame.K_DOWN:
+                        self.hero.move("bas", self.labyrinth.structure)
+                        print("a droite")
+                    print(self.labyrinth.structure)

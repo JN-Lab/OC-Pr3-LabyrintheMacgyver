@@ -65,3 +65,16 @@ class Level:
             print("The file was not found. Here is the original message : ", error_message)
         except:
             print("Destination unknown")
+
+    def update_labyrint_structure(self, character):
+        self.structure[character.y_index][character.x_index] = character.stripe_face
+
+        if character.direction is not None and character.success_deplacement:
+            if character.direction == "droite":
+                self.structure[character.y_index][character.x_index - 1] = FLOOR_STRIPE
+            elif character.direction == "gauche":
+                self.structure[character.y_index][character.x_index + 1] = FLOOR_STRIPE
+            elif character.direction == "haut":
+                self.structure[character.y_index + 1][character.x_index] = FLOOR_STRIPE
+            elif character.direction == "bas":
+                self.structure[character.y_index - 1][character.x_index] = FLOOR_STRIPE
