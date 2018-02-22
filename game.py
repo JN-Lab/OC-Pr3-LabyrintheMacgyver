@@ -249,13 +249,13 @@ class Game:
 
         game_status = ""
         if event.key == pygame.K_RIGHT:
-            game_status = self.hero.touch_something("right", self.labyrinth.structure)
+            game_status = self.hero.touch_something("right", self.labyrinth)
         elif event.key == pygame.K_LEFT:
-            game_status = self.hero.touch_something("left", self.labyrinth.structure)
+            game_status = self.hero.touch_something("left", self.labyrinth)
         elif event.key == pygame.K_UP:
-            game_status = self.hero.touch_something("up", self.labyrinth.structure)
+            game_status = self.hero.touch_something("up", self.labyrinth)
         elif event.key == pygame.K_DOWN:
-            game_status = self.hero.touch_something("down", self.labyrinth.structure)
+            game_status = self.hero.touch_something("down", self.labyrinth)
 
         if game_status == "game_over":
             self.play_game = False

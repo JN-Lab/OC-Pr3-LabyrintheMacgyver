@@ -64,20 +64,12 @@ class Character:
         else:
             print("Pas possible. C'est un mur")
 
-    def touch_something(self, direction, labyrinth_structure):
+    def touch_something(self, direction, labyrinth):
         """ This method returns the game status when the character gets into contact
         with an item or another character """
 
         game_status = ""
-        next_case_face = ""
-        if direction == "right":
-            next_case_face = labyrinth_structure[self.y_index][self.x_index + 1]
-        elif direction == "left":
-            next_case_face = labyrinth_structure[self.y_index][self.x_index - 1]
-        elif direction == "up":
-            next_case_face = labyrinth_structure[self.y_index - 1][self.x_index]
-        elif direction == "down":
-            next_case_face = labyrinth_structure[self.y_index + 1][self.x_index]
+        next_case_face = labyrinth.get_next_stripe(self.x_index, self.y_index, direction)
 
         if next_case_face == BAD_GUY_STRIPE:
             if self.numb_items < 3:
