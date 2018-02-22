@@ -16,6 +16,7 @@ class Item:
         self.y_index = 0
         self.stripe_face = stripe_face
         self.object_image = self.__get_image()
+        self.found = False
 
     def __get_image(self):
         """ This private method selects the equipements to load from equipment-32x32.png """

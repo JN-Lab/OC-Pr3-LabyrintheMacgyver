@@ -147,7 +147,26 @@ class Game:
 
         title_console.blit(item_text, (0, 0))
         console.blit(title_console, (0, 12))
+
+        self.__update_item_console(self.needle, self.hero, console)
+        self.__update_item_console(self.tube, self.hero, console)
+        self.__update_item_console(self.ether, self.hero, console)
+
         screen.blit(console, (0, 600))
+
+    def __update_item_console(self, item, character, surface):
+        numb_items = character.get_numb_items()
+        x_console = 0
+        if item.found:
+            item_console = pygame.Surface((50, 50))
+            item_console.blit(self.needle.object_image, (9, 9))
+            if numb_items == 1:
+                x_console = 200
+            elif numb_items == 2:
+                x_console = 250
+            elif numb_items == 3:
+                x_console = 300
+            surface.blit(item_console, (x_console, 0))
 
     def __update_menu_design(self, screen):
         """ This method updates the menu selection """
@@ -266,8 +285,12 @@ class Game:
             self.play_game = False
             self.menu = True
             self.menu_message = "WINNER - ANOTHER ONE?"
-        # Il faut encore gérer l'affichage des items dans la console lorsqu'il
-        # en choppe un
+        elif game_status == "found_needle":
+            self.needle.found = True
+        elif game_status == "found_ether":
+            self.ether.found = True
+        elif game_status == "found_tube":
+            self.tube.found = True
 
     def start(self):
         """ This method loads the game """

@@ -76,14 +76,18 @@ class Character:
                 game_status = "win"
         elif next_case_stripe == NEEDLE_STRIPE:
             self.numb_items += 1
-            game_status = "continue"
+            game_status = "found_needle"
         elif next_case_stripe == ETHER_STRIPE:
             self.numb_items += 1
-            game_status = "continue"
+            game_status = "found_ether"
         elif next_case_stripe == TUBE_STRIPE:
             self.numb_items += 1
-            game_status = "continue"
+            game_status = "found_tube"
         else:
             game_status = "continue"
 
         return game_status
+
+    def get_numb_items(self):
+        
+        return self.numb_items
