@@ -232,16 +232,16 @@ class Game:
         """ This method manages the process of the game"""
 
         if event.key == pygame.K_RIGHT:
-            self.hero.move("right", self.labyrinth.structure)
+            self.hero.move("right", self.labyrinth)
             self.labyrinth.update_labyrint_structure(self.hero)
         elif event.key == pygame.K_LEFT:
-            self.hero.move("left", self.labyrinth.structure)
+            self.hero.move("left", self.labyrinth)
             self.labyrinth.update_labyrint_structure(self.hero)
         elif event.key == pygame.K_UP:
-            self.hero.move("up", self.labyrinth.structure)
+            self.hero.move("up", self.labyrinth)
             self.labyrinth.update_labyrint_structure(self.hero)
         elif event.key == pygame.K_DOWN:
-            self.hero.move("down", self.labyrinth.structure)
+            self.hero.move("down", self.labyrinth)
             self.labyrinth.update_labyrint_structure(self.hero)
 
     def __get_status_game(self, event: pygame.event):

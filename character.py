@@ -39,7 +39,7 @@ class Character:
 
         return stripe_face
 
-    def move(self, direction, labyrinth_structure):
+    def move(self, direction, labyrinth):
         """ This method allows the character to move on the top, the right, the bottom
         or the left if there is no wall. At the same time, it manages the evolution
         of the structure according the movement of the main character. If the
@@ -47,38 +47,22 @@ class Character:
 
         self.success_deplacement = False
         self.direction = direction
-        next_case_face = ""
+        next_case_stripe = labyrinth.get_next_stripe(self.x_index, self.y_index, direction)
 
-        if direction == "right":
-            next_case_face = labyrinth_structure[self.y_index][self.x_index + 1]
-            if next_case_face != WALL_STRIPE:
-                self.x_index += 1
-                self.success_deplacement = True
-            else:
-                print("Pas possible. C'est un mur!\n")
-        elif direction == "left":
-            next_case_face = labyrinth_structure[self.y_index][self.x_index - 1]
-            if next_case_face != WALL_STRIPE:
-                self.x_index -= 1
-                self.success_deplacement = True
-            else:
-                print("Pas possible. C'est un mur!\n")
-        elif direction == "up":
-            next_case_face = labyrinth_structure[self.y_index - 1][self.x_index]
-            if next_case_face != WALL_STRIPE:
-                self.y_index -= 1
-                self.success_deplacement = True
-            else:
-                print("Pas possible. C'est un mur!\n")
-        elif direction == "down":
-            next_case_face = labyrinth_structure[self.y_index + 1][self.x_index]
-            if next_case_face != WALL_STRIPE:
-                self.y_index += 1
-                self.success_deplacement = True
-            else:
-                print("Pas possible. C'est un mur!\n")
+        if next_case_stripe != WALL_STRIPE and direction == "right":
+            self.x_index += 1
+            self.success_deplacement = True
+        elif next_case_stripe != WALL_STRIPE and direction == "left":
+            self.x_index -= 1
+            self.success_deplacement = True
+        elif next_case_stripe != WALL_STRIPE and direction == "up":
+            self.y_index -= 1
+            self.success_deplacement = True
+        elif next_case_stripe != WALL_STRIPE and direction == "down":
+            self.y_index += 1
+            self.success_deplacement = True
         else:
-            print("La commande n'est pas correcte. Veuillez réessayer.")
+            print("Pas possible. C'est un mur")
 
     def touch_something(self, direction, labyrinth_structure):
         """ This method returns the game status when the character gets into contact

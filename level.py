@@ -70,6 +70,22 @@ class Level:
 
         return self.structure[y_index][x_index]
 
+    def get_next_stripe(self, x_index, y_index, direction):
+        """ This method returns the next strip according the direction
+        of the character """
+
+        next_stripe = ""
+        if direction == "right":
+            next_stripe = self.structure[y_index][x_index + 1]
+        elif direction == "left":
+            next_stripe = self.structure[y_index][x_index - 1]
+        elif direction == "up":
+            next_stripe = self.structure[y_index - 1][x_index]
+        elif direction == "down":
+            next_stripe = self.structure[y_index + 1][x_index]
+
+        return next_stripe
+
     def set_stripe(self, x_index, y_index, stripe):
         """ This method changes the stripe of a specific case """
 
