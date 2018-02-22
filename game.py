@@ -4,9 +4,9 @@ import random
 
 import pygame
 
-from level import *
-from character import *
-from item import *
+from level import Level
+from character import Character
+from item import Item
 from constants import *
 
 class Game:
@@ -223,10 +223,10 @@ class Game:
     def __select_option_menu(self, event: pygame.event):
         """ This method manages the menu button selection """
 
-        if self.selected_button == "play_game" and event.key == pygame.K_KP_ENTER:
+        if self.selected_button == "play_game" and event.key == pygame.K_RETURN:
             self.menu = False
             self.play_game = True
-        elif self.selected_button == "quit_game" and event.key == pygame.K_KP_ENTER:
+        elif self.selected_button == "quit_game" and event.key == pygame.K_RETURN:
             self.start_program = False
 
     def __process_event_game(self, event: pygame.event):

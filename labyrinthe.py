@@ -3,7 +3,7 @@
 
 import pygame
 
-from game import *
+from game import Game
 from constants import *
 
 def main():
