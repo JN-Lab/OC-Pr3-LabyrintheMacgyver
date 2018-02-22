@@ -65,28 +65,27 @@ class Game:
                     self.bad_guy.y_index = index_line
 
         # Define Objects' position
-        self.__get_item_position(self.needle)
+        random_positions = self.__get_item_positions(3)
+        self.needle.x_index = random_positions[0][0]
+        self.needle.y_index = random_positions[0][1]
+        self.tube.x_index = random_positions[1][0]
+        self.tube.y_index = random_positions[1][1]
+        self.ether.x_index = random_positions[2][0]
+        self.ether.y_index = random_positions[2][1]
+
         self.labyrinth.set_stripe(self.needle.x_index, self.needle.y_index, NEEDLE_STRIPE)
-
-        self.__get_item_position(self.tube)
         self.labyrinth.set_stripe(self.tube.x_index, self.tube.y_index, TUBE_STRIPE)
-
-        self.__get_item_position(self.ether)
         self.labyrinth.set_stripe(self.ether.x_index, self.ether.y_index, ETHER_STRIPE)
 
-    def __get_item_position(self, item):
-        """ This private method generates random position for the items of the game
-        according valid location in labyrinth structure """
-
+    def __get_item_positions(self, numb_position):
         valid_location = []
         for index_line, line in enumerate(self.labyrinth.structure):
             for index_stripe, stripe in enumerate(line):
                 if stripe == self.labyrinth.floor_stripe_face:
-                    valid_location.append([index_line, index_stripe])
+                    valid_location.append((index_stripe, index_line))
 
-        winner_location = random.choice(valid_location)
-        item.y_index = winner_location[0]
-        item.x_index = winner_location[1]
+        winner_locations = random.sample(valid_location, numb_position)
+        return winner_locations
 
     def __update_level_design(self, screen):
         """ This method updates the image of labyrinth labyrinth_case according the labyrinth structure """

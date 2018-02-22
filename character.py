@@ -69,20 +69,20 @@ class Character:
         with an item or another character """
 
         game_status = ""
-        next_case_face = labyrinth.get_next_stripe(self.x_index, self.y_index, direction)
+        next_case_stripe = labyrinth.get_next_stripe(self.x_index, self.y_index, direction)
 
-        if next_case_face == BAD_GUY_STRIPE:
+        if next_case_stripe == BAD_GUY_STRIPE:
             if self.numb_items < 3:
                 game_status = "game_over"
             else:
                 game_status = "win"
-        elif next_case_face == NEEDLE_STRIPE:
+        elif next_case_stripe == NEEDLE_STRIPE:
             self.numb_items += 1
             game_status = "continue"
-        elif next_case_face == ETHER_STRIPE:
+        elif next_case_stripe == ETHER_STRIPE:
             self.numb_items += 1
             game_status = "continue"
-        elif next_case_face == TUBE_STRIPE:
+        elif next_case_stripe == TUBE_STRIPE:
             self.numb_items += 1
             game_status = "continue"
         else:
