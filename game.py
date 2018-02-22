@@ -11,8 +11,8 @@ from constants import *
 
 class Game:
 
-    def __init__(self, window, level):
-        self.window = window
+    def __init__(self, level):
+        self.window = self.__define_window()
         self.level = level
         self.screen_interaction = pygame.Surface((X_SCREEN_INTERACTION, Y_SCREEN_INTERACTION))
 
@@ -24,10 +24,17 @@ class Game:
         self.tube = Item(TUBE_STRIPE)
         self.ether = Item(ETHER_STRIPE)
 
-        self.menu = True
-        self.play_game = False
+        self.menu = False
+        self.play_game = True
 
         self.__prepare()
+
+    def __define_window(self):
+        window = pygame.display.set_mode((X_WINDOW_GAME, Y_WINDOW_GAME))
+        background = pygame.image.load("sources/background-jail-800x800.jpg").convert()
+        window.blit(background, (0, 0))
+
+        return window
 
     def __prepare(self):
         """ This method positions the characters and objects in the labyrinth structure """
@@ -223,15 +230,24 @@ class Game:
         # self.menu = True
         pass
 
-    def start(self, event: pygame.event):
+    def start(self):
         """ This method loads the game """
-        if self.menu:
-            pass
-            #self.__process_event_menu(event)
-            #return 1
-        elif self.play_game:
-            self.__process_event_game(event)
-            #self.__process_end_game(event)
-            #return 1
-        #else:
-            #return 0
+        start_program = 1
+
+        while start_program:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    start_program = 0
+                elif event.type == pygame.KEYDOWN:
+                    if self.menu:
+                        pass
+                        #self.__process_event_menu(event)
+                        #return 1
+                    elif self.play_game:
+                        self.__process_event_game(event)
+                        #self.__process_end_game(event)
+                        #return 1
+                    #else:
+                        #return 0
+            self.update_screen_interaction()
+            pygame.display.flip()
