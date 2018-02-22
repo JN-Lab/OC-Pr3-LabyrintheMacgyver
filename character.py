@@ -1,8 +1,5 @@
 #! /usr/bin/env python3
 # coding: utf-8
-
-import sys
-
 import pygame
 
 from constants import *
@@ -84,7 +81,7 @@ class Character:
             print("La commande n'est pas correcte. Veuillez réessayer.")
 
     def touch_something(self, direction, labyrinth_structure):
-        """ This method returns the game status when the character gets contact
+        """ This method returns the game status when the character gets into contact
         with an item or another character """
 
         game_status = ""

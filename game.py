@@ -24,9 +24,14 @@ class Game:
         self.tube = Item(TUBE_STRIPE)
         self.ether = Item(ETHER_STRIPE)
 
+        self.selected_button = "play_game"
+        self.play_button_color = WHITE
+        self.quit_button_color = BLACK
         self.menu_message = "READY TO PLAY?"
-        self.menu = False
-        self.play_game = True
+
+        self.start_program = True
+        self.menu = True
+        self.play_game = False
 
         self.__prepare()
 
@@ -39,7 +44,15 @@ class Game:
 
     def __prepare(self):
         """ This method positions the characters and objects in the labyrinth structure """
+        # Be sure to initialize all the characteristic of the game_over
+        self.labyrinth = Level(self.level, 'line')
+        self.hero = Character("hero")
+        self.bad_guy = Character("bad_guy")
 
+        self.needle = Item(NEEDLE_STRIPE)
+        self.tube = Item(TUBE_STRIPE)
+        self.ether = Item(ETHER_STRIPE)
+        
         # Define Characters' position
         self.hero.x_index = 1
         self.hero.y_index = 1
@@ -133,6 +146,7 @@ class Game:
 
     def __update_menu_design(self, screen):
         """ This method updates the menu selection """
+
         # Get the fonts
         choice_text = pygame.font.SysFont('freesans', 50)
 
@@ -148,8 +162,8 @@ class Game:
         # Creation of play button
         play_button = pygame.Surface((300, 80))
         play_button.fill(DARKGRAY)
-        pygame.draw.rect(play_button, WHITE, (0, 0, 300, 80), 2)
-        play_text = choice_text.render("PLAY", True, WHITE)
+        pygame.draw.rect(play_button, self.play_button_color, (0, 0, 300, 80), 2)
+        play_text = choice_text.render("PLAY", True, self.play_button_color)
         play_text_position = play_text.get_rect()
         play_text_position.centerx = play_button.get_rect().centerx
         play_text_position.centery = play_button.get_rect().centery
@@ -158,8 +172,8 @@ class Game:
         # Creation of quit button
         quit_button = pygame.Surface((300, 80))
         quit_button.fill(DARKGRAY)
-        pygame.draw.rect(quit_button, WHITE, (0, 0, 300, 80), 2)
-        quit_text = choice_text.render("QUIT", True, WHITE)
+        pygame.draw.rect(quit_button, self.quit_button_color, (0, 0, 300, 80), 2)
+        quit_text = choice_text.render("QUIT", True, self.quit_button_color)
         quit_text_position = quit_text.get_rect()
         quit_text_position.centerx = quit_button.get_rect().centerx
         quit_text_position.centery = quit_button.get_rect().centery
@@ -182,32 +196,25 @@ class Game:
         self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
 
     def __process_event_menu(self, event: pygame.event):
-        pass
+        self.__interact_with_button_menu(event)
+        self.__select_option_menu(event)
 
-    #def __update_button_menu_design(self, selected_button):
-        #selected_button = play_game
-        #if selected_button == play_game:
-            #bouton play_game = texte blanc et contour blanc
-            #bouton quit_game = texte noir et contour noir
-        #elif selected_button == quit_game:
-            #bouton play_game = texte noir et contour noir
-            #bouton quit_game = texte blanc et contour blanc
+    def __interact_with_button_menu(self, event: pygame.event):
+        if self.selected_button == "play_game" and event.key == pygame.K_DOWN:
+            self.play_button_color = BLACK
+            self.quit_button_color = WHITE
+            self.selected_button = "quit_game"
+        elif self.selected_button == "quit_game" and event.key == pygame.K_UP:
+            self.play_button_color = WHITE
+            self.quit_button_color = BLACK
+            self.selected_button = "play_game"
 
-    #def __interact_with_button_menu(self, selected_button):
-        #if selected_button == play_game and event.key == pygame.K_DOWN:
-            #selected_button = quit_game
-        #elif selected_button == quit_game and event.key == pyagme.K_UP:
-            #selected_button = play_game
-
-    #def __select_option_menu(self, selected_button):
-        #if selected_button == play_game and event.key == pygame.K_KP_ENTER:
-            #self.menu = False
-            #self.play_game = True
-        #elif selected_button == quit_game and event.key == pygame.K_KP_ENTER:
-            #self.menu = False
-            #self.play_game = False
-        pass
-
+    def __select_option_menu(self, event: pygame.event):
+        if self.selected_button == "play_game" and event.key == pygame.K_KP_ENTER:
+            self.menu = False
+            self.play_game = True
+        elif self.selected_button == "quit_game" and event.key == pygame.K_KP_ENTER:
+            self.start_program = False
 
     def __process_event_game(self, event: pygame.event):
         """ This method manages the process of the game"""
@@ -241,32 +248,29 @@ class Game:
             self.play_game = False
             self.menu = True
             self.menu_message = "GAME OVER - ANOTHER ONE?"
+            self.__prepare()
         elif game_status == "win":
             self.play_game = False
             self.menu = True
             self.menu_message = "WINNER - ANOTHER ONE?"
+            self.__prepare()
         # Il faut encore gérer l'affichage des items dans la console lorsqu'il
         # en choppe un
 
     def start(self):
         """ This method loads the game """
-        start_program = 1
 
-        while start_program:
+        while self.start_program:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    start_program = 0
+                    self.start_program = False
                 elif event.type == pygame.KEYDOWN:
                     if self.menu:
-                        pass
-                        #self.__process_event_menu(event)
-                        #return 1
+                        self.__process_event_menu(event)
                     elif self.play_game:
                         self.__get_status_game(event)
                         self.__process_event_game(event)
-
-                        #return 1
                     else:
-                        start_program = 0
+                        self.start_program = 0
             self.update_screen_interaction()
             pygame.display.flip()
