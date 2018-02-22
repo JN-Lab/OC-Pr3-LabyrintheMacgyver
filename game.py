@@ -10,6 +10,7 @@ from item import Item
 from constants import *
 
 class Game:
+    """ This class manages the game """
 
     def __init__(self, level):
         self.window = self.__define_window()
@@ -155,7 +156,7 @@ class Game:
         choice_text = pygame.font.SysFont('freesans', 50)
 
         # Creation of game statut
-        game_statut = pygame.Surface((600, 80))
+        game_statut = pygame.Surface((X_MESSAGE, Y_MESSAGE))
         game_statut.fill(DARKGRAY)
         text_statut = choice_text.render(self.menu_message, True, WHITE)
         text_statut_position = text_statut.get_rect()
@@ -164,9 +165,9 @@ class Game:
         game_statut.blit(text_statut, text_statut_position)
 
         # Creation of play button
-        play_button = pygame.Surface((300, 80))
+        play_button = pygame.Surface((X_BUTTON, Y_BUTTON))
         play_button.fill(DARKGRAY)
-        pygame.draw.rect(play_button, self.play_button_color, (0, 0, 300, 80), 2)
+        pygame.draw.rect(play_button, self.play_button_color, (0, 0, X_BUTTON, Y_BUTTON), BORDER)
         play_text = choice_text.render("PLAY", True, self.play_button_color)
         play_text_position = play_text.get_rect()
         play_text_position.centerx = play_button.get_rect().centerx
@@ -174,9 +175,9 @@ class Game:
         play_button.blit(play_text, play_text_position)
 
         # Creation of quit button
-        quit_button = pygame.Surface((300, 80))
+        quit_button = pygame.Surface((X_BUTTON, Y_BUTTON))
         quit_button.fill(DARKGRAY)
-        pygame.draw.rect(quit_button, self.quit_button_color, (0, 0, 300, 80), 2)
+        pygame.draw.rect(quit_button, self.quit_button_color, (0, 0, X_BUTTON, Y_BUTTON), BORDER)
         quit_text = choice_text.render("QUIT", True, self.quit_button_color)
         quit_text_position = quit_text.get_rect()
         quit_text_position.centerx = quit_button.get_rect().centerx
@@ -184,11 +185,11 @@ class Game:
         quit_button.blit(quit_text, quit_text_position)
 
         # Integration of the different elements into screen
-        screen.blit(game_statut, (10, 0))
+        screen.blit(game_statut, (20, 0))
         screen.blit(play_button, (150, 300))
         screen.blit(quit_button, (150, 425))
 
-    def update_screen_interaction(self):
+    def __update_screen_interaction(self):
         """ This method updates the labyrinth screens """
         self.screen_interaction.fill(DARKGRAY)
         if self.menu:
@@ -244,7 +245,8 @@ class Game:
             self.labyrinth.update_labyrint_structure(self.hero)
 
     def __get_status_game(self, event: pygame.event):
-        """ this method will determine the statut of the game when Mac Gyver will touch Murdoc """
+        """ this method will determine the statut of the game when Mac Gyver
+        will touch Murdoc """
 
         game_status = ""
         if event.key == pygame.K_RIGHT:
@@ -282,5 +284,5 @@ class Game:
                         self.__process_event_game(event)
                     else:
                         self.start_program = False
-            self.update_screen_interaction()
+            self.__update_screen_interaction()
             pygame.display.flip()

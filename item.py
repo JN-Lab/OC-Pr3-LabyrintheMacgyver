@@ -27,11 +27,11 @@ class Item:
             elif self.stripe_face == TUBE_STRIPE:
                 num_item = 64
 
-            object_selection_images = pygame.image.load("sources/equipment-32x32.png").convert_alpha()
+            object_selection_images = pygame.image.load(EQUIPMENT_IMAGES).convert_alpha()
 
         elif self.stripe_face == ETHER_STRIPE:
             num_item = 6
-            object_selection_images = pygame.image.load("sources/extras-32x32.png").convert_alpha()
+            object_selection_images = pygame.image.load(EXTRAS_IMAGES).convert_alpha()
 
         x_dim_image = 32
         y_dim_image = 32

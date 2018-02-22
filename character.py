@@ -23,9 +23,9 @@ class Character:
         """ This method generates the image of the character according his role """
 
         if self.role == "hero":
-            image = pygame.image.load("sources/macgyver-32x43.png").convert_alpha()
+            image = pygame.image.load(HERO_IMAGE).convert_alpha()
         else:
-            image = pygame.image.load("sources/murdoc-32.png").convert_alpha()
+            image = pygame.image.load(BAD_GUY_IMAGE).convert_alpha()
 
         return image
 
@@ -61,8 +61,6 @@ class Character:
         elif next_case_stripe != WALL_STRIPE and direction == "down":
             self.y_index += 1
             self.success_deplacement = True
-        else:
-            print("Pas possible. C'est un mur")
 
     def touch_something(self, direction, labyrinth):
         """ This method returns the game status when the character gets into contact

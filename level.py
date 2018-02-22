@@ -24,17 +24,17 @@ class Level:
         self.__generate_labyrinth_from_json()
 
     def __get_wall_image(self):
-        """ This private method selects the wall to load from wall-tiles-40x40.png  """
+        """ This private method selects the wall image to load """
 
-        wall_selection_images = pygame.image.load("sources/wall-tiles-40x40.png").convert_alpha()
+        wall_selection_images = pygame.image.load(WALL_IMAGES).convert_alpha()
         wall_image = wall_selection_images.subsurface((300, 20, 40, 40))
 
         return wall_image
 
     def __get_floor_image(self):
-        """ This private method selects the florr to load from floor-tiles-20x20.png  """
+        """ This private method selects the floor image to load """
 
-        floor_selection_images = pygame.image.load("sources/floor-tiles-20x20.png").convert_alpha()
+        floor_selection_images = pygame.image.load(FLOOR_IMAGES).convert_alpha()
         floor_image = floor_selection_images.subsurface((240, 120, 40, 20))
 
         return floor_image
@@ -92,6 +92,8 @@ class Level:
         self.structure[y_index][x_index] = stripe
 
     def update_labyrint_structure(self, character):
+        """ This method updates the structure of the level according the position
+        and the direction of the character """
 
         self.set_stripe(character.x_index, character.y_index, character.stripe_face)
 
