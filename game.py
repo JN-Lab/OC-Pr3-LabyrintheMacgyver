@@ -33,8 +33,6 @@ class Game:
         self.menu = True
         self.play_game = False
 
-        self.__prepare()
-
     def __define_window(self):
         """ This method defines the window of the game """
 
@@ -226,6 +224,7 @@ class Game:
         if self.selected_button == "play_game" and event.key == pygame.K_RETURN:
             self.menu = False
             self.play_game = True
+            self.__prepare()
         elif self.selected_button == "quit_game" and event.key == pygame.K_RETURN:
             self.start_program = False
 
@@ -262,12 +261,10 @@ class Game:
             self.play_game = False
             self.menu = True
             self.menu_message = "GAME OVER - ANOTHER ONE?"
-            self.__prepare()
         elif game_status == "win":
             self.play_game = False
             self.menu = True
             self.menu_message = "WINNER - ANOTHER ONE?"
-            self.__prepare()
         # Il faut encore gérer l'affichage des items dans la console lorsqu'il
         # en choppe un
 
