@@ -65,15 +65,26 @@ class Level:
         except:
             print("Destination unknown")
 
+    def get_stripe(self, x_index, y_index):
+        """ This method returns the stripe of a specific case """
+
+        return self.structure[y_index][x_index]
+
+    def set_stripe(self, x_index, y_index, stripe):
+        """ This method changes the stripe of a specific case """
+
+        self.structure[y_index][x_index] = stripe
+
     def update_labyrint_structure(self, character):
-        self.structure[character.y_index][character.x_index] = character.stripe_face
+
+        self.set_stripe(character.x_index, character.y_index, character.stripe_face)
 
         if character.direction is not None and character.success_deplacement:
             if character.direction == "right":
-                self.structure[character.y_index][character.x_index - 1] = FLOOR_STRIPE
+                self.set_stripe(character.x_index - 1, character.y_index, FLOOR_STRIPE)
             elif character.direction == "left":
-                self.structure[character.y_index][character.x_index + 1] = FLOOR_STRIPE
+                self.set_stripe(character.x_index + 1, character.y_index, FLOOR_STRIPE)
             elif character.direction == "up":
-                self.structure[character.y_index + 1][character.x_index] = FLOOR_STRIPE
+                self.set_stripe(character.x_index, character.y_index + 1, FLOOR_STRIPE)
             elif character.direction == "down":
-                self.structure[character.y_index - 1][character.x_index] = FLOOR_STRIPE
+                self.set_stripe(character.x_index, character.y_index -1, FLOOR_STRIPE)

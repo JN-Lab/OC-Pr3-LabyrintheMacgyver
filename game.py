@@ -66,13 +66,13 @@ class Game:
 
         # Define Objects' position
         self.__get_item_position(self.needle)
-        self.labyrinth.structure[self.needle.y_index][self.needle.x_index] = self.needle.stripe_face
+        self.labyrinth.set_stripe(self.needle.x_index, self.needle.y_index, NEEDLE_STRIPE)
 
         self.__get_item_position(self.tube)
-        self.labyrinth.structure[self.tube.y_index][self.tube.x_index] = self.tube.stripe_face
+        self.labyrinth.set_stripe(self.tube.x_index, self.tube.y_index, TUBE_STRIPE)
 
         self.__get_item_position(self.ether)
-        self.labyrinth.structure[self.ether.y_index][self.ether.x_index] = self.ether.stripe_face
+        self.labyrinth.set_stripe(self.ether.x_index, self.ether.y_index, ETHER_STRIPE)
 
     def __get_item_position(self, item):
         """ This private method generates random position for the items of the game
