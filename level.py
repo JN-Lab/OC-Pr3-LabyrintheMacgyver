@@ -12,10 +12,9 @@ class Level:
     """ This class creates the Labyrinth which will be used for the game
     from a Json file located in the folder named sources/ """
 
-    def __init__(self, data_file, key):
+    def __init__(self, data_file):
         """ This method gives the different attributes to the Level's labyrinth """
         self.data_file = data_file
-        self.key = key # It is the attribute in Json file
         self.structure = []
         self.wall_image = self.__get_wall_image()
         self.floor_image = self.__get_floor_image()
@@ -56,7 +55,7 @@ class Level:
                 data = json.load(file)
                 for lines in data:
                     labyrinth_lines = []
-                    for stripe in lines[self.key]:
+                    for stripe in lines:
                         labyrinth_lines.append(stripe)
                     labyrinth_structure.append(labyrinth_lines)
 

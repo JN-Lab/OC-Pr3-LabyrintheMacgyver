@@ -16,7 +16,7 @@ class Game:
         self.level = level
         self.screen_interaction = pygame.Surface((X_SCREEN_INTERACTION, Y_SCREEN_INTERACTION))
 
-        self.labyrinth = Level(self.level, 'line')
+        self.labyrinth = Level(self.level)
         self.hero = Character("hero")
         self.bad_guy = Character("bad_guy")
 
@@ -36,6 +36,8 @@ class Game:
         self.__prepare()
 
     def __define_window(self):
+        """ This method defines the window of the game """
+
         window = pygame.display.set_mode((X_WINDOW_GAME, Y_WINDOW_GAME))
         background = pygame.image.load("sources/background-jail-800x800.jpg").convert()
         window.blit(background, (0, 0))
@@ -44,23 +46,25 @@ class Game:
 
     def __prepare(self):
         """ This method positions the characters and objects in the labyrinth structure """
+
         # Be sure to initialize all the characteristic of the game_over
-        self.labyrinth = Level(self.level, 'line')
+        self.labyrinth = Level(self.level)
         self.hero = Character("hero")
         self.bad_guy = Character("bad_guy")
 
         self.needle = Item(NEEDLE_STRIPE)
         self.tube = Item(TUBE_STRIPE)
         self.ether = Item(ETHER_STRIPE)
-        
-        # Define Characters' position
-        self.hero.x_index = 1
-        self.hero.y_index = 1
-        self.bad_guy.x_index = 14
-        self.bad_guy.y_index = 12
 
-        self.labyrinth.structure[self.hero.y_index][self.hero.x_index] = self.hero.stripe_face
-        self.labyrinth.structure[self.bad_guy.y_index][self.bad_guy.x_index] = self.bad_guy.stripe_face
+        # Define Characters' position
+        for index_line, line in enumerate(self.labyrinth.structure):
+            for index_stripe, stripe in enumerate(line):
+                if stripe == HERO_STRIPE:
+                    self.hero.x_index = index_stripe
+                    self.hero.y_index = index_line
+                elif stripe == BAD_GUY_STRIPE:
+                    self.bad_guy.x_index = index_stripe
+                    self.bad_guy.y_index = index_line
 
         # Define Objects' position
         self.__get_item_position(self.needle)
@@ -75,6 +79,7 @@ class Game:
     def __get_item_position(self, item):
         """ This private method generates random position for the items of the game
         according valid location in labyrinth structure """
+
         valid_location = []
         for index_line, line in enumerate(self.labyrinth.structure):
             for index_stripe, stripe in enumerate(line):
@@ -132,7 +137,9 @@ class Game:
             num_line += 1
 
     def __update_level_console(self, screen):
-        """ This method updates the console which contains the number of items collected by the Hero """
+        """ This method updates the console which contains the number of items
+        collected by the Hero """
+
         console = pygame.Surface((600, 50))
         console.fill(BLACK)
 
@@ -196,10 +203,14 @@ class Game:
         self.window.blit(self.screen_interaction, (X_CORNER_SCREEN_INTERACTION, Y_CORNER_SCREEN_INTERACTION))
 
     def __process_event_menu(self, event: pygame.event):
+        """ This method groups all the interaction the player can have with the menu """
+
         self.__interact_with_button_menu(event)
         self.__select_option_menu(event)
 
     def __interact_with_button_menu(self, event: pygame.event):
+        """ This method manages the switch between menu button """
+
         if self.selected_button == "play_game" and event.key == pygame.K_DOWN:
             self.play_button_color = BLACK
             self.quit_button_color = WHITE
@@ -210,6 +221,8 @@ class Game:
             self.selected_button = "play_game"
 
     def __select_option_menu(self, event: pygame.event):
+        """ This method manages the menu button selection """
+
         if self.selected_button == "play_game" and event.key == pygame.K_KP_ENTER:
             self.menu = False
             self.play_game = True
@@ -234,6 +247,7 @@ class Game:
 
     def __get_status_game(self, event: pygame.event):
         """ this method will determine the statut of the game when Mac Gyver will touch Murdoc """
+
         game_status = ""
         if event.key == pygame.K_RIGHT:
             game_status = self.hero.touch_something("right", self.labyrinth.structure)
@@ -271,6 +285,6 @@ class Game:
                         self.__get_status_game(event)
                         self.__process_event_game(event)
                     else:
-                        self.start_program = 0
+                        self.start_program = False
             self.update_screen_interaction()
             pygame.display.flip()
