@@ -24,6 +24,7 @@ class Game:
         self.tube = Item(TUBE_STRIPE)
         self.ether = Item(ETHER_STRIPE)
 
+        self.menu_message = "READY TO PLAY?"
         self.menu = False
         self.play_game = True
 
@@ -138,7 +139,7 @@ class Game:
         # Creation of game statut
         game_statut = pygame.Surface((600, 80))
         game_statut.fill(DARKGRAY)
-        text_statut = choice_text.render("PRET A JOUER?", True, WHITE)
+        text_statut = choice_text.render(self.menu_message, True, WHITE)
         text_statut_position = text_statut.get_rect()
         text_statut_position.centerx = game_statut.get_rect().centerx
         text_statut_position.centery = game_statut.get_rect().centery
@@ -209,7 +210,8 @@ class Game:
 
 
     def __process_event_game(self, event: pygame.event):
-        """ This method manages the process of the game """
+        """ This method manages the process of the game"""
+
         if event.key == pygame.K_RIGHT:
             self.hero.move("right", self.labyrinth.structure)
             self.labyrinth.update_labyrint_structure(self.hero)
@@ -223,12 +225,28 @@ class Game:
             self.hero.move("down", self.labyrinth.structure)
             self.labyrinth.update_labyrint_structure(self.hero)
 
-    def __process_end_game(self, event: pygame.event):
+    def __get_status_game(self, event: pygame.event):
         """ this method will determine the statut of the game when Mac Gyver will touch Murdoc """
-        # Si 3 items -> Bravo sinon -> Looser
-        # self.play_game = False
-        # self.menu = True
-        pass
+        game_status = ""
+        if event.key == pygame.K_RIGHT:
+            game_status = self.hero.touch_something("right", self.labyrinth.structure)
+        elif event.key == pygame.K_LEFT:
+            game_status = self.hero.touch_something("left", self.labyrinth.structure)
+        elif event.key == pygame.K_UP:
+            game_status = self.hero.touch_something("up", self.labyrinth.structure)
+        elif event.key == pygame.K_DOWN:
+            game_status = self.hero.touch_something("down", self.labyrinth.structure)
+
+        if game_status == "game_over":
+            self.play_game = False
+            self.menu = True
+            self.menu_message = "GAME OVER - ANOTHER ONE?"
+        elif game_status == "win":
+            self.play_game = False
+            self.menu = True
+            self.menu_message = "WINNER - ANOTHER ONE?"
+        # Il faut encore gérer l'affichage des items dans la console lorsqu'il
+        # en choppe un
 
     def start(self):
         """ This method loads the game """
@@ -244,10 +262,11 @@ class Game:
                         #self.__process_event_menu(event)
                         #return 1
                     elif self.play_game:
+                        self.__get_status_game(event)
                         self.__process_event_game(event)
-                        #self.__process_end_game(event)
+
                         #return 1
-                    #else:
-                        #return 0
+                    else:
+                        start_program = 0
             self.update_screen_interaction()
             pygame.display.flip()

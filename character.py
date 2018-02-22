@@ -56,8 +56,6 @@ class Character:
             next_case_face = labyrinth_structure[self.y_index][self.x_index + 1]
             if next_case_face != WALL_STRIPE:
                 self.x_index += 1
-                if next_case_face != FLOOR_STRIPE:
-                    self.__touch(next_case_face)
                 self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
@@ -65,8 +63,6 @@ class Character:
             next_case_face = labyrinth_structure[self.y_index][self.x_index - 1]
             if next_case_face != WALL_STRIPE:
                 self.x_index -= 1
-                if next_case_face != FLOOR_STRIPE:
-                    self.__touch(next_case_face)
                 self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
@@ -74,8 +70,6 @@ class Character:
             next_case_face = labyrinth_structure[self.y_index - 1][self.x_index]
             if next_case_face != WALL_STRIPE:
                 self.y_index -= 1
-                if next_case_face != FLOOR_STRIPE:
-                    self.__touch(next_case_face)
                 self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
@@ -83,22 +77,42 @@ class Character:
             next_case_face = labyrinth_structure[self.y_index + 1][self.x_index]
             if next_case_face != WALL_STRIPE:
                 self.y_index += 1
-                if next_case_face != FLOOR_STRIPE:
-                    self.__touch(next_case_face)
                 self.success_deplacement = True
             else:
                 print("Pas possible. C'est un mur!\n")
         else:
             print("La commande n'est pas correcte. Veuillez réessayer.")
 
-    def __touch(self, face_item):
-        """ This private method manages the interaction between character and objects
-        after the movement of the main character """
-        if face_item == "F":
+    def touch_something(self, direction, labyrinth_structure):
+        """ This method returns the game status when the character gets contact
+        with an item or another character """
+
+        game_status = ""
+        next_case_face = ""
+        if direction == "right":
+            next_case_face = labyrinth_structure[self.y_index][self.x_index + 1]
+        elif direction == "left":
+            next_case_face = labyrinth_structure[self.y_index][self.x_index - 1]
+        elif direction == "up":
+            next_case_face = labyrinth_structure[self.y_index - 1][self.x_index]
+        elif direction == "down":
+            next_case_face = labyrinth_structure[self.y_index + 1][self.x_index]
+
+        if next_case_face == BAD_GUY_STRIPE:
             if self.numb_items < 3:
-                print("Perdu! Le gardien t'a attrappé.")
+                game_status = "game_over"
             else:
-                print("Bravo!! MacGyver a pu s'échapper.")
-            sys.exit()
-        else:
+                game_status = "win"
+        elif next_case_face == NEEDLE_STRIPE:
             self.numb_items += 1
+            game_status = "continue"
+        elif next_case_face == ETHER_STRIPE:
+            self.numb_items += 1
+            game_status = "continue"
+        elif next_case_face == TUBE_STRIPE:
+            self.numb_items += 1
+            game_status = "continue"
+        else:
+            game_status = "continue"
+
+        return game_status
