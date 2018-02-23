@@ -135,8 +135,8 @@ class Game:
             num_line += 1
 
     def __update_level_console(self, screen):
-        """ This method updates the console which contains the number of items
-        collected by the Hero """
+        """ This method updates the console which contains the number and the
+        image of items collected by the Hero """
 
         console = pygame.Surface((600, 50))
         console.fill(BLACK)
@@ -148,25 +148,36 @@ class Game:
         title_console.blit(item_text, (0, 0))
         console.blit(title_console, (0, 12))
 
-        self.__update_item_console(self.needle, self.hero, console)
-        self.__update_item_console(self.tube, self.hero, console)
-        self.__update_item_console(self.ether, self.hero, console)
+        if self.hero.numb_items == 1:
+            if self.needle.found:
+                self.__update_item_console(self.needle, 200, console)
+            elif self.ether.found:
+                self.__update_item_console(self.ether, 250, console)
+            elif self.tube.found:
+                self.__update_item_console(self.tube, 300, console)
+        elif self.hero.numb_items == 2:
+            if self.needle.found and self.ether.found:
+                self.__update_item_console(self.needle, 200, console)
+                self.__update_item_console(self.ether, 250, console)
+            elif self.needle.found and self.tube.found:
+                self.__update_item_console(self.needle, 200, console)
+                self.__update_item_console(self.tube, 300, console)
+            elif self.ether.found and self.tube.found:
+                self.__update_item_console(self.ether, 250, console)
+                self.__update_item_console(self.tube, 300, console)
+        elif self.hero.numb_items == 3:
+            self.__update_item_console(self.needle, 200, console)
+            self.__update_item_console(self.ether, 250, console)
+            self.__update_item_console(self.tube, 300, console)
 
         screen.blit(console, (0, 600))
 
-    def __update_item_console(self, item, character, surface):
-        numb_items = character.get_numb_items()
-        x_console = 0
-        if item.found:
-            item_console = pygame.Surface((50, 50))
-            item_console.blit(self.needle.object_image, (9, 9))
-            if numb_items == 1:
-                x_console = 200
-            elif numb_items == 2:
-                x_console = 250
-            elif numb_items == 3:
-                x_console = 300
-            surface.blit(item_console, (x_console, 0))
+    def __update_item_console(self, item, x_position, surface):
+        """ This method loads the item surface in the console """
+
+        item_console = pygame.Surface((50, 50))
+        item_console.blit(item.object_image, (9, 9))
+        surface.blit(item_console, (x_position, 0))
 
     def __update_menu_design(self, screen):
         """ This method updates the menu selection """

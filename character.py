@@ -87,7 +87,3 @@ class Character:
             game_status = "continue"
 
         return game_status
-
-    def get_numb_items(self):
-        
-        return self.numb_items
