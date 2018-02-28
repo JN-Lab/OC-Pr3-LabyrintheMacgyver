@@ -47,18 +47,18 @@ class Character:
 
         self.success_deplacement = False
         self.direction = direction
-        next_case_stripe = labyrinth.get_next_stripe(self.x_index, self.y_index, direction)
+        next_case = labyrinth.get_next_stripe(self.x_index, self.y_index, direction)
 
-        if next_case_stripe != WALL_STRIPE and direction == "right":
+        if next_case != WALL_STRIPE and direction == "right":
             self.x_index += 1
             self.success_deplacement = True
-        elif next_case_stripe != WALL_STRIPE and direction == "left":
+        elif next_case != WALL_STRIPE and direction == "left":
             self.x_index -= 1
             self.success_deplacement = True
-        elif next_case_stripe != WALL_STRIPE and direction == "up":
+        elif next_case != WALL_STRIPE and direction == "up":
             self.y_index -= 1
             self.success_deplacement = True
-        elif next_case_stripe != WALL_STRIPE and direction == "down":
+        elif next_case != WALL_STRIPE and direction == "down":
             self.y_index += 1
             self.success_deplacement = True
 
@@ -67,20 +67,20 @@ class Character:
         with an item or another character """
 
         game_status = ""
-        next_case_stripe = labyrinth.get_next_stripe(self.x_index, self.y_index, direction)
+        next_case = labyrinth.get_next_stripe(self.x_index, self.y_index, direction)
 
-        if next_case_stripe == BAD_GUY_STRIPE:
+        if next_case == BAD_GUY_STRIPE:
             if self.numb_items < 3:
                 game_status = "game_over"
             else:
                 game_status = "win"
-        elif next_case_stripe == NEEDLE_STRIPE:
+        elif next_case == NEEDLE_STRIPE:
             self.numb_items += 1
             game_status = "found_needle"
-        elif next_case_stripe == ETHER_STRIPE:
+        elif next_case == ETHER_STRIPE:
             self.numb_items += 1
             game_status = "found_ether"
-        elif next_case_stripe == TUBE_STRIPE:
+        elif next_case == TUBE_STRIPE:
             self.numb_items += 1
             game_status = "found_tube"
         else:

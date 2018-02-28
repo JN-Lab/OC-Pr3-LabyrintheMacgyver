@@ -89,7 +89,8 @@ class Game:
         return winner_locations
 
     def __update_level_design(self, screen):
-        """ This method updates the image of labyrinth labyrinth_case according the labyrinth structure """
+        """ This method updates the image of labyrinth labyrinth_case according
+        the labyrinth structure """
 
         labyrinth_case = pygame.Surface((X_LEVEL_DIM_CASE, Y_LEVEL_DIM_CASE))
 
@@ -276,7 +277,7 @@ class Game:
 
     def __get_status_game(self, event: pygame.event):
         """ this method will determine the statut of the game when Mac Gyver
-        will touch Murdoc """
+        will touch Murdoc or an item """
 
         game_status = ""
         if event.key == pygame.K_RIGHT:

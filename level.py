@@ -61,7 +61,7 @@ class Level:
 
             self.structure = labyrinth_structure
         except FileNotFoundError as error_message:
-            print("The file was not found. Here is the original message : ", error_message)
+            print("The file was not found: ", error_message)
         except:
             print("Destination unknown")
 
