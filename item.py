@@ -19,7 +19,8 @@ class Item:
         self.found = False
 
     def __get_image(self):
-        """ This private method selects the equipements to load from equipment-32x32.png """
+        """ This private method selects the equipements to load from
+        equipment-32x32.png """
         num_item = 0
 
         if self.stripe_face != ETHER_STRIPE:
@@ -28,16 +29,16 @@ class Item:
             elif self.stripe_face == TUBE_STRIPE:
                 num_item = 64
 
-            object_selection_images = pygame.image.load(EQUIPMENT_IMAGES).convert_alpha()
+            item_images = pygame.image.load(EQUIPMENT_IMAGES).convert_alpha()
 
         elif self.stripe_face == ETHER_STRIPE:
             num_item = 6
-            object_selection_images = pygame.image.load(EXTRAS_IMAGES).convert_alpha()
+            item_images = pygame.image.load(EXTRAS_IMAGES).convert_alpha()
 
-        x_dim_image = 32
-        y_dim_image = 32
-        x_corner_image = num_item * x_dim_image - x_dim_image
-        y_corner_image = 0
-        object_image = object_selection_images.subsurface((x_corner_image, y_corner_image, x_dim_image, y_dim_image))
+        x_dim = 32
+        y_dim = 32
+        x_corner = num_item * x_dim - x_dim
+        y_corner = 0
+        object_image = item_images.subsurface((x_corner, y_corner, x_dim, y_dim))
 
         return object_image

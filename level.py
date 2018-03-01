@@ -53,9 +53,9 @@ class Level:
         try:
             with open(path_to_file, "r") as file:
                 data = json.load(file)
-                for lines in data:
+                for line in data:
                     labyrinth_lines = []
-                    for stripe in lines:
+                    for stripe in line:
                         labyrinth_lines.append(stripe)
                     labyrinth_structure.append(labyrinth_lines)
 
