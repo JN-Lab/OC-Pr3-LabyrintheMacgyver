@@ -264,16 +264,16 @@ class Game:
 
         if event.key == pygame.K_RIGHT:
             self.hero.move("right", self.labyrinth)
-            self.labyrinth.update_labyrint_structure(self.hero)
+            self.labyrinth.update_labyrinth_structure(self.hero)
         elif event.key == pygame.K_LEFT:
             self.hero.move("left", self.labyrinth)
-            self.labyrinth.update_labyrint_structure(self.hero)
+            self.labyrinth.update_labyrinth_structure(self.hero)
         elif event.key == pygame.K_UP:
             self.hero.move("up", self.labyrinth)
-            self.labyrinth.update_labyrint_structure(self.hero)
+            self.labyrinth.update_labyrinth_structure(self.hero)
         elif event.key == pygame.K_DOWN:
             self.hero.move("down", self.labyrinth)
-            self.labyrinth.update_labyrint_structure(self.hero)
+            self.labyrinth.update_labyrinth_structure(self.hero)
 
     def __get_status_game(self, event: pygame.event):
         """ this method will determine the statut of the game when Mac Gyver

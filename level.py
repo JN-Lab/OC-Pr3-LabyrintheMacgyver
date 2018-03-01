@@ -91,7 +91,7 @@ class Level:
 
         self.structure[y_index][x_index] = stripe
 
-    def update_labyrint_structure(self, character):
+    def update_labyrinth_structure(self, character):
         """ This method updates the structure of the level according the position
         and the direction of the character """
 
