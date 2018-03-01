@@ -4,7 +4,6 @@
 import pygame
 
 from game import Game
-from constants import *
 
 def main():
     pygame.init()
