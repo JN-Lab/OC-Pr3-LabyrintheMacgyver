@@ -149,27 +149,13 @@ class Game:
         title_console.blit(item_text, (0, 0))
         console.blit(title_console, (0, 12))
 
-        if self.hero.numb_items == 1:
-            if self.needle.found:
-                self.__update_item_console(self.needle, 200, console)
-            elif self.ether.found:
-                self.__update_item_console(self.ether, 250, console)
-            elif self.tube.found:
-                self.__update_item_console(self.tube, 300, console)
-        elif self.hero.numb_items == 2:
-            if self.needle.found and self.ether.found:
-                self.__update_item_console(self.needle, 200, console)
-                self.__update_item_console(self.ether, 250, console)
-            elif self.needle.found and self.tube.found:
-                self.__update_item_console(self.needle, 200, console)
-                self.__update_item_console(self.tube, 300, console)
-            elif self.ether.found and self.tube.found:
-                self.__update_item_console(self.ether, 250, console)
-                self.__update_item_console(self.tube, 300, console)
-        elif self.hero.numb_items == 3:
+        if self.needle.found:
             self.__update_item_console(self.needle, 200, console)
+        if self.ether.found:
             self.__update_item_console(self.ether, 250, console)
+        if self.tube.found:
             self.__update_item_console(self.tube, 300, console)
+
 
         screen.blit(console, (0, 600))
 
